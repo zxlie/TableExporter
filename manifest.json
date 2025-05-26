@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Table Exporter",
-  "version": "1.0.0",
-  "description": "自动识别页面上的table，并为每个table添加导出为Excel的按钮。",
+  "name": "TableExporter - 表格导出神器",
+  "version": "20250526.2200",
+  "description": "🚀 智能识别网页表格，一键导出Excel！支持复杂表格、数据分析必备，让数据处理变得简单高效。",
+  "homepage_url": "https://www.baidufe.com/table-reporter",
   "icons": {
     "16": "img/icon-16.png",
     "32": "img/icon-32.png",
