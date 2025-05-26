@@ -285,7 +285,29 @@ function rgbToHex(rgb) {
     if (!rgb || rgb === 'rgba(0, 0, 0, 0)' || rgb === 'transparent') return null;
     
     if (rgb.startsWith('#')) {
-        return rgb.replace('#', '').toUpperCase().padStart(6, '0');
+        const hex = rgb.replace('#', '').toUpperCase();
+        // 处理3位hex转6位
+        if (hex.length === 3) {
+            return hex.split('').map(c => c + c).join('');
+        }
+        return hex.padStart(6, '0');
+    }
+    
+    // 处理颜色名称
+    const namedColors = {
+        'red': 'FF0000',
+        'blue': '0000FF',
+        'green': '008000',
+        'yellow': 'FFFF00',
+        'orange': 'FFA500',
+        'purple': '800080',
+        'black': '000000',
+        'white': 'FFFFFF',
+        'gray': '808080',
+        'grey': '808080'
+    };
+    if (namedColors[rgb.toLowerCase()]) {
+        return namedColors[rgb.toLowerCase()];
     }
     
     const result = rgb.match(/\d+/g);
@@ -297,6 +319,45 @@ function rgbToHex(rgb) {
         .toUpperCase();
     
     return hex === '000000' ? null : hex;
+}
+
+// 从CSS渐变中提取第一个颜色值
+function extractGradientColor(backgroundImage) {
+    if (!backgroundImage || !backgroundImage.includes('gradient')) return null;
+    
+    // 匹配渐变中的颜色值，优先匹配hex颜色
+    const hexMatches = backgroundImage.match(/#[0-9a-fA-F]{3,6}/g);
+    if (hexMatches && hexMatches.length > 0) {
+        const color = rgbToHex(hexMatches[0]);
+        if (color) return color;
+    }
+    
+    // 匹配rgb/rgba颜色
+    const rgbMatches = backgroundImage.match(/rgba?\([^)]+\)/g);
+    if (rgbMatches && rgbMatches.length > 0) {
+        const color = rgbToHex(rgbMatches[0]);
+        if (color) return color;
+    }
+    
+    // 尝试匹配命名颜色
+    const namedColorMatch = backgroundImage.match(/\b(red|blue|green|yellow|orange|purple|black|white|gray|grey)\b/i);
+    if (namedColorMatch) {
+        const namedColors = {
+            'red': 'FF0000',
+            'blue': '0000FF',
+            'green': '008000',
+            'yellow': 'FFFF00',
+            'orange': 'FFA500',
+            'purple': '800080',
+            'black': '000000',
+            'white': 'FFFFFF',
+            'gray': '808080',
+            'grey': '808080'
+        };
+        return namedColors[namedColorMatch[0].toLowerCase()];
+    }
+    
+    return null;
 }
 
 // 获取字体大小（转换为磅值）
@@ -327,7 +388,23 @@ function copyCellStyle(excelCell, domCell) {
     };
     
     // 背景色
-    const bgColor = rgbToHex(style.backgroundColor);
+    let bgColor = rgbToHex(style.backgroundColor);
+    
+    // 如果backgroundColor为空或透明，尝试从渐变背景中提取颜色
+    if (!bgColor) {
+        bgColor = extractGradientColor(style.backgroundImage);
+    }
+    
+    // 如果还是没有，尝试从background属性中提取
+    if (!bgColor) {
+        bgColor = extractGradientColor(style.background);
+    }
+    
+    // 特别处理表头单元格 - 如果仍然没有背景色，为th元素设置默认颜色
+    if (!bgColor && domCell.tagName.toLowerCase() === 'th') {
+        bgColor = 'FF9800'; // 使用橙色作为默认表头背景色
+    }
+    
     if (bgColor) {
         excelCell.fill = {
             type: 'pattern',

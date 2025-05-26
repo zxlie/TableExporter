@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "TableExporter - 表格导出神器",
-  "version": "20250526.2200",
+  "version": "2025.0526.2200",
   "description": "🚀 智能识别网页表格，一键导出Excel！支持复杂表格、数据分析必备，让数据处理变得简单高效。",
   "homepage_url": "https://www.baidufe.com/table-reporter",
   "icons": {

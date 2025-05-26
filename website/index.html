@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TableExporter - 表格导出神器 | 智能网页表格导出工具</title>
+    <meta name="description" content="TableExporter是一款智能识别网页表格并一键导出Excel的Chrome扩展插件。支持复杂表格、保持原始样式、数据分析必备工具，让数据处理变得简单高效。">
+    <meta name="keywords" content="表格导出,Excel导出,Chrome扩展,网页表格,数据分析,TableExporter">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.baidufe.com/table-reporter">
+    <meta property="og:title" content="TableExporter - 表格导出神器">
+    <meta property="og:description" content="智能识别网页表格，一键导出Excel！支持复杂表格、数据分析必备，让数据处理变得简单高效。">
+    <meta property="og:image" content="https://www.baidufe.com/table-reporter/assets/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.baidufe.com/table-reporter">
+    <meta property="twitter:title" content="TableExporter - 表格导出神器">
+    <meta property="twitter:description" content="智能识别网页表格，一键导出Excel！支持复杂表格、数据分析必备，让数据处理变得简单高效。">
+    <meta property="twitter:image" content="https://www.baidufe.com/table-reporter/assets/og-image.jpg">
+
+    <link rel="icon" type="image/png" href="./img/icon-32.png">
+    <link rel="apple-touch-icon" href="./img/icon-128.png">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <img src="../img/icon-48.png" alt="TableExporter Logo" class="logo">
+                <span class="brand-text">TableExporter</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#features" class="nav-link">功能特性</a>
+                <a href="#how-to-use" class="nav-link">使用教程</a>
+                <a href="#demo" class="nav-link">在线演示</a>
+                <a href="#download" class="nav-link">立即下载</a>
+                <a href="https://github.com/yourusername/TableExporter" class="nav-link" target="_blank">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄区域 -->
+    <section class="hero">
+        <div class="hero-background">
+            <div class="hero-particles"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="gradient-text">TableExporter</span>
+                        <br>表格导出神器
+                    </h1>
+                    <p class="hero-subtitle">
+                        🚀 智能识别网页表格，一键导出Excel！<br>
+                        支持复杂表格、数据分析必备，让数据处理变得简单高效。
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="https://chrome.google.com/webstore/detail/kiiicbilcnneedomahkhhmmoaojdcdmo" class="btn btn-primary btn-large" target="_blank">
+                            <i class="fab fa-chrome"></i>
+                            Chrome商店安装
+                        </a>
+                        <a href="#demo" class="btn btn-secondary btn-large">
+                            <i class="fas fa-play"></i>
+                            查看演示
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">10K+</div>
+                            <div class="stat-label">用户下载</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">99%</div>
+                            <div class="stat-label">成功率</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">网站兼容</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="browser-mockup">
+                        <div class="browser-header">
+                            <div class="browser-buttons">
+                                <span class="btn-close"></span>
+                                <span class="btn-minimize"></span>
+                                <span class="btn-maximize"></span>
+                            </div>
+                            <div class="browser-url">https://example.com/data-table</div>
+                        </div>
+                        <div class="browser-content">
+                            <img src="assets/images/demo-screenshot.png" alt="TableExporter 演示截图" class="demo-image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 功能特性 -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">✨ 强大功能特性</h2>
+                <p class="section-subtitle">专业的表格导出解决方案，满足各种数据处理需求</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3 class="feature-title">智能识别</h3>
+                    <p class="feature-description">自动识别页面中的所有表格，支持复杂的合并单元格和嵌套表格结构</p>
+                    <ul class="feature-list">
+                        <li>自动识别表格元素</li>
+                        <li>支持动态内容监听</li>
+                        <li>智能过滤无效数据</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-excel"></i>
+                    </div>
+                    <h3 class="feature-title">完美导出</h3>
+                    <p class="feature-description">保持原始样式格式，支持图片、链接、颜色等复杂内容的完整导出</p>
+                    <ul class="feature-list">
+                        <li>所见即所得的样式保持</li>
+                        <li>图片自动嵌入处理</li>
+                        <li>超链接完整保留</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="feature-title">界面自定义</h3>
+                    <p class="feature-description">多种预设主题，支持自定义按钮样式、位置和文案模板</p>
+                    <ul class="feature-list">
+                        <li>7种精美预设主题</li>
+                        <li>完全自定义样式</li>
+                        <li>灵活的按钮位置控制</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="feature-title">高级配置</h3>
+                    <p class="feature-description">丰富的配置选项，文件名模板、图片尺寸、性能优化等全面控制</p>
+                    <ul class="feature-list">
+                        <li>文件名变量模板</li>
+                        <li>图片尺寸智能控制</li>
+                        <li>性能参数自由调节</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="feature-title">高性能</h3>
+                    <p class="feature-description">按需加载设计，不影响页面性能，支持大数据量表格处理</p>
+                    <ul class="feature-list">
+                        <li>按需脚本注入</li>
+                        <li>进度实时显示</li>
+                        <li>支持万行级数据</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">安全可靠</h3>
+                    <p class="feature-description">本地处理数据，不上传任何信息，完全保护用户隐私和数据安全</p>
+                    <ul class="feature-list">
+                        <li>完全本地处理</li>
+                        <li>零数据上传</li>
+                        <li>隐私完全保护</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 使用教程 -->
+    <section id="how-to-use" class="how-to-use">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">🚀 简单三步，轻松上手</h2>
+                <p class="section-subtitle">从安装到使用，只需几分钟即可掌握</p>
+            </div>
+            
+            <div class="steps-container">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 class="step-title">安装插件</h3>
+                        <p class="step-description">在Chrome Web Store搜索"TableExporter"或直接点击安装链接，一键安装到浏览器</p>
+                        <div class="step-image">
+                            <img src="assets/images/step1.png" alt="安装步骤">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 class="step-title">配置样式</h3>
+                        <p class="step-description">右键插件图标选择"选项"，配置按钮样式和导出参数</p>
+                        <div class="step-image">
+                            <img src="assets/images/step2.png" alt="配置步骤">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 class="step-title">导出表格</h3>
+                        <p class="step-description">在包含表格的页面点击插件图标激活，然后点击导出按钮</p>
+                        <div class="step-image">
+                            <img src="assets/images/step3.png" alt="使用步骤">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 在线演示 -->
+    <section id="demo" class="demo">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">📺 在线演示</h2>
+                <p class="section-subtitle">看看TableExporter如何处理各种复杂表格</p>
+            </div>
+            
+            <div class="demo-container">
+                <div class="demo-tabs">
+                    <button class="demo-tab active" data-tab="basic">基础表格</button>
+                    <button class="demo-tab" data-tab="complex">复杂表格</button>
+                    <button class="demo-tab" data-tab="styled">样式表格</button>
+                </div>
+                
+                <div class="demo-content">
+                    <div class="demo-panel active" id="basic">
+                        <div class="demo-table-container">
+                            <table class="demo-table">
+                                <thead>
+                                    <tr>
+                                        <th>产品名称</th>
+                                        <th>价格</th>
+                                        <th>库存</th>
+                                        <th>状态</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>MacBook Pro</td>
+                                        <td>¥12,999</td>
+                                        <td>25</td>
+                                        <td><span class="status in-stock">有库存</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>iPad Air</td>
+                                        <td>¥4,599</td>
+                                        <td>0</td>
+                                        <td><span class="status out-of-stock">缺货</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>iPhone 14</td>
+                                        <td>¥5,999</td>
+                                        <td>15</td>
+                                        <td><span class="status in-stock">有库存</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button class="export-btn">
+                                <i class="fas fa-download"></i>
+                                导出数据到Excel（3条）
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="demo-panel" id="complex">
+                        <div class="demo-table-container">
+                            <table class="demo-table complex">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2">部门</th>
+                                        <th colspan="2">2023年度</th>
+                                        <th colspan="2">2024年度</th>
+                                    </tr>
+                                    <tr>
+                                        <th>收入</th>
+                                        <th>支出</th>
+                                        <th>收入</th>
+                                        <th>支出</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>技术部</td>
+                                        <td>500万</td>
+                                        <td>300万</td>
+                                        <td>600万</td>
+                                        <td>350万</td>
+                                    </tr>
+                                    <tr>
+                                        <td>销售部</td>
+                                        <td>800万</td>
+                                        <td>200万</td>
+                                        <td>900万</td>
+                                        <td>250万</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button class="export-btn">
+                                <i class="fas fa-download"></i>
+                                导出数据到Excel（2条）
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="demo-panel" id="styled">
+                        <div class="demo-table-container">
+                            <table class="demo-table styled">
+                                <thead>
+                                    <tr style="background: linear-gradient(45deg, #667eea 0%, #764ba2 100%); color: white;">
+                                        <th>员工姓名</th>
+                                        <th>头像</th>
+                                        <th>个人主页</th>
+                                        <th>绩效评分</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="font-weight: bold; color: #2c3e50;">张三</td>
+                                        <td><img src="https://via.placeholder.com/40x40/ff6b6b/ffffff?text=张" alt="头像" style="border-radius: 50%; width: 40px; height: 40px;"></td>
+                                        <td><a href="#" style="color: #3498db; text-decoration: underline;">查看详情</a></td>
+                                        <td style="background-color: #2ecc71; color: white; text-align: center; border-radius: 4px;">优秀</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold; color: #2c3e50;">李四</td>
+                                        <td><img src="https://via.placeholder.com/40x40/4ecdc4/ffffff?text=李" alt="头像" style="border-radius: 50%; width: 40px; height: 40px;"></td>
+                                        <td><a href="#" style="color: #3498db; text-decoration: underline;">查看详情</a></td>
+                                        <td style="background-color: #f39c12; color: white; text-align: center; border-radius: 4px;">良好</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button class="export-btn">
+                                <i class="fas fa-download"></i>
+                                导出数据到Excel（2条）
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 下载区域 -->
+    <section id="download" class="download">
+        <div class="container">
+            <div class="download-content">
+                <div class="download-text">
+                    <h2 class="download-title">立即体验TableExporter</h2>
+                    <p class="download-subtitle">免费下载，开始您的高效数据处理之旅</p>
+                    
+                    <div class="download-stats">
+                        <div class="stat">
+                            <span class="stat-icon">⭐</span>
+                            <span class="stat-text">5.0 用户评分</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-icon">🔒</span>
+                            <span class="stat-text">100% 安全</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-icon">🆓</span>
+                            <span class="stat-text">完全免费</span>
+                        </div>
+                    </div>
+                    
+                    <div class="download-buttons">
+                        <a href="https://chrome.google.com/webstore/detail/kiiicbilcnneedomahkhhmmoaojdcdmo" class="btn btn-primary btn-large download-btn" target="_blank">
+                            <i class="fab fa-chrome"></i>
+                            Chrome商店安装
+                        </a>
+                        <a href="https://github.com/yourusername/TableExporter" class="btn btn-secondary btn-large" target="_blank">
+                            <i class="fab fa-github"></i>
+                            查看源码
+                        </a>
+                    </div>
+                    
+                    <div class="download-info">
+                        <p><i class="fas fa-info-circle"></i> 支持Chrome 88+版本，已上架Chrome Web Store</p>
+                        <p><i class="fas fa-shield-alt"></i> 开源项目，代码完全透明，一键安装</p>
+                    </div>
+                </div>
+                
+                <div class="download-image">
+                    <div class="phone-mockup">
+                        <img src="assets/images/extension-preview.png" alt="TableExporter 扩展预览">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">❓ 常见问题</h2>
+                <p class="section-subtitle">解答用户最关心的问题</p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>TableExporter支持哪些网站？</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>TableExporter支持所有包含HTML表格的网站，包括但不限于：电商平台、数据分析网站、后台管理系统、在线报表等。只要页面中有&lt;table&gt;标签，就可以完美识别和导出。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>导出的Excel文件能保持原始样式吗？</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>是的！TableExporter采用"所见即所得"的导出方式，能够完整保持原始的字体、颜色、背景、对齐方式、边框等样式。同时支持图片嵌入和超链接保留。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>是否会影响网页加载速度？</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>不会！TableExporter采用按需加载设计，只有当您点击插件图标时才会注入脚本，平时不会影响任何网页的性能和加载速度。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>数据安全有保障吗？</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>完全安全！TableExporter采用100%本地处理方式，所有数据处理都在您的浏览器中完成，不会向任何服务器上传您的数据，完全保护隐私安全。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>支持导出多大的表格？</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>TableExporter默认支持导出1万行以内的表格数据，对于更大的数据量，您可以在配置中调整最大行数限制。同时提供了进度显示和性能优化选项。</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>如何自定义按钮样式？</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>右键点击插件图标选择"选项"进入配置页面，您可以选择7种预设主题，或者完全自定义背景色、文字颜色、字体大小、圆角等样式参数。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <img src="../img/icon-48.png" alt="TableExporter Logo" class="footer-logo">
+                        <span class="footer-brand-text">TableExporter</span>
+                    </div>
+                    <p class="footer-description">
+                        专业的网页表格导出工具，让数据处理变得简单高效。
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://github.com/yourusername/TableExporter" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" target="_blank">
+                            <i class="fab fa-weibo"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">产品</h4>
+                    <ul class="footer-links">
+                        <li><a href="#features">功能特性</a></li>
+                        <li><a href="#how-to-use">使用教程</a></li>
+                        <li><a href="#demo">在线演示</a></li>
+                        <li><a href="#download">下载</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">支持</h4>
+                    <ul class="footer-links">
+                        <li><a href="docs.html">使用文档</a></li>
+                        <li><a href="privacy.html">隐私政策</a></li>
+                        <li><a href="changelog.html">更新日志</a></li>
+                        <li><a href="mailto:support@baidufe.com">联系我们</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-title">关于</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">关于我们</a></li>
+                        <li><a href="https://github.com/yourusername/TableExporter/blob/main/LICENSE" target="_blank">开源协议</a></li>
+                        <li><a href="https://github.com/yourusername/TableExporter/issues" target="_blank">问题反馈</a></li>
+                        <li><a href="../img/donate.jpeg" target="_blank">赞助项目</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    <p>&copy; 2024 TableExporter. 保留所有权利。</p>
+                </div>
+                <div class="footer-meta">
+                    <span>版本 2025.0526.2200</span>
+                    <span>•</span>
+                    <span>MIT 开源协议</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 回到顶部按钮 -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script src="assets/js/script.js"></script>
+</body>
+</html> 

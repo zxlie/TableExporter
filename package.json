@@ -1,0 +1,34 @@
+{
+  "name": "table-reporter-extension",
+  "version": "20250526.2200",
+  "description": "Chrome 扩展：智能识别网页表格，一键导出Excel",
+  "main": "gulpfile.js",
+  "scripts": {
+    "build": "node --no-deprecation $(which gulp) build",
+    "clean": "node --no-deprecation $(which gulp) clean",
+    "zip": "node --no-deprecation $(which gulp) zip",
+    "watch": "node --no-deprecation $(which gulp) watch",
+    "gulp": "node --no-deprecation $(which gulp)"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-uglify": "^3.0.2",
+    "gulp-rename": "^2.0.0",
+    "gulp-zip": "^5.1.0",
+    "del": "^6.1.1"
+  },
+  "author": "TableReporter Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/table-reporter"
+  },
+  "keywords": [
+    "chrome-extension",
+    "table",
+    "excel",
+    "export",
+    "data"
+  ]
+} 
