@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Exporter 功能测试页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        h1 {
+            color: #ff9800;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .test-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            background: #f9f9f9;
+        }
+        
+        .test-section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #ff9800;
+            padding-bottom: 8px;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+            color: white;
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f5f5f5;
+        }
+        
+        tr:hover {
+            background-color: #e3f2fd;
+        }
+        
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .link {
+            color: #1976d2;
+            text-decoration: none;
+        }
+        
+        .link:hover {
+            text-decoration: underline;
+        }
+        
+        .highlight {
+            background-color: #ffeb3b;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        
+        .status-success {
+            color: #4caf50;
+            font-weight: bold;
+        }
+        
+        .status-warning {
+            color: #ff9800;
+            font-weight: bold;
+        }
+        
+        .status-error {
+            color: #f44336;
+            font-weight: bold;
+        }
+        
+        .number-cell {
+            text-align: right;
+            font-family: 'Courier New', monospace;
+            background-color: #e8f5e8;
+        }
+        
+        .instructions {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #2196f3;
+        }
+        
+        .note {
+            background: #fff3e0;
+            padding: 15px;
+            border-left: 4px solid #ff9800;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .feature-badge {
+            display: inline-block;
+            background: #4caf50;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 2px;
+        }
+        
+        .company-logo {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+        
+        .test-result {
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .test-result:hover {
+            background-color: #f0f0f0 !important;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <h1>🚀 Table Exporter 功能测试页面</h1>
+    
+    <div class="instructions">
+        <h3>📋 测试步骤：</h3>
+        <ol>
+            <li><strong>安装插件</strong>：插件会自动打开配置页面</li>
+            <li><strong>配置插件</strong>：在配置页面调整样式和导出参数</li>
+            <li><strong>激活功能</strong>：点击插件图标激活导出功能</li>
+            <li><strong>测试导出</strong>：点击表格上方的导出按钮</li>
+            <li><strong>验证效果</strong>：检查下载的Excel文件</li>
+            <li><strong>配置测试</strong>：使用页面底部的检查清单验证各项配置功能</li>
+        </ol>
+        <div class="note">
+            <strong>💡 测试功能：</strong>
+            <ul style="margin: 10px 0; padding-left: 20px;">
+                <li>每个表格都会自动添加导出按钮，点击即可下载Excel文件</li>
+                <li>修改配置后刷新页面查看按钮样式变化</li>
+                <li>点击配置检查清单中的"测试结果"单元格记录测试状态</li>
+                <li>测试不同的图片、链接、样式导出效果</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>👥 员工信息表格</h2>
+        <div class="note">
+            <span class="feature-badge">图片导出</span>
+            <span class="feature-badge">超链接</span>
+            <span class="feature-badge">样式保持</span>
+            <span class="feature-badge">数据类型</span>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>头像</th>
+                    <th>姓名</th>
+                    <th>部门</th>
+                    <th>职位</th>
+                    <th>邮箱</th>
+                    <th>薪资</th>
+                    <th>状态</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="number-cell">001</td>
+                    <td><img src="https://picsum.photos/50/50?random=1" alt="张三" class="avatar"></td>
+                    <td><span class="highlight">张三</span></td>
+                    <td>技术部</td>
+                    <td>前端工程师</td>
+                    <td><a href="mailto:zhangsan@company.com" class="link">zhangsan@company.com</a></td>
+                    <td class="number-cell">15000.00</td>
+                    <td class="status-success">在职</td>
+                </tr>
+                <tr>
+                    <td class="number-cell">002</td>
+                    <td><img src="https://picsum.photos/50/50?random=2" alt="李四" class="avatar"></td>
+                    <td>李四</td>
+                    <td>技术部</td>
+                    <td>后端工程师</td>
+                    <td><a href="mailto:lisi@company.com" class="link">lisi@company.com</a></td>
+                    <td class="number-cell">18000.50</td>
+                    <td class="status-success">在职</td>
+                </tr>
+                <tr>
+                    <td class="number-cell">003</td>
+                    <td><img src="https://picsum.photos/50/50?random=3" alt="王五" class="avatar"></td>
+                    <td>王五</td>
+                    <td>设计部</td>
+                    <td>UI设计师</td>
+                    <td><a href="mailto:wangwu@company.com" class="link">wangwu@company.com</a></td>
+                    <td class="number-cell">13500.75</td>
+                    <td class="status-warning">试用期</td>
+                </tr>
+                <tr>
+                    <td class="number-cell">004</td>
+                    <td><img src="https://picsum.photos/50/50?random=4" alt="赵六" class="avatar"></td>
+                    <td>赵六</td>
+                    <td>市场部</td>
+                    <td>市场专员</td>
+                    <td><a href="mailto:zhaoliu@company.com" class="link">zhaoliu@company.com</a></td>
+                    <td class="number-cell">12000.00</td>
+                    <td class="status-error">离职</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="test-section">
+        <h2>📊 销售数据统计</h2>
+        <div class="note">
+            <span class="feature-badge">数字格式</span>
+            <span class="feature-badge">合并单元格</span>
+            <span class="feature-badge">复杂表头</span>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th rowspan="2">产品</th>
+                    <th colspan="2">第一季度</th>
+                    <th colspan="2">第二季度</th>
+                    <th rowspan="2">总计</th>
+                </tr>
+                <tr>
+                    <th>销量</th>
+                    <th>收入</th>
+                    <th>销量</th>
+                    <th>收入</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>产品A</td>
+                    <td class="number-cell">1250</td>
+                    <td class="number-cell">125000.00</td>
+                    <td class="number-cell">1400</td>
+                    <td class="number-cell">140000.00</td>
+                    <td class="number-cell">265000.00</td>
+                </tr>
+                <tr>
+                    <td>产品B</td>
+                    <td class="number-cell">890</td>
+                    <td class="number-cell">89000.00</td>
+                    <td class="number-cell">1050</td>
+                    <td class="number-cell">105000.00</td>
+                    <td class="number-cell">194000.00</td>
+                </tr>
+                <tr>
+                    <td>产品C</td>
+                    <td class="number-cell">760</td>
+                    <td class="number-cell">76000.00</td>
+                    <td class="number-cell">820</td>
+                    <td class="number-cell">82000.00</td>
+                    <td class="number-cell">158000.00</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="test-section">
+        <h2>🏢 公司部门信息</h2>
+        <div class="note">
+            <span class="feature-badge">链接保持</span>
+            <span class="feature-badge">背景色</span>
+            <span class="feature-badge">Logo图片</span>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>部门</th>
+                    <th>Logo</th>
+                    <th>负责人</th>
+                    <th>人数</th>
+                    <th>部门主页</th>
+                    <th>成立时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="background-color: #e8f5e8;">
+                    <td><strong>技术部</strong></td>
+                    <td><img src="https://picsum.photos/40/40?random=5" alt="技术部" class="company-logo"></td>
+                    <td>张技术</td>
+                    <td class="number-cell">25</td>
+                    <td><a href="https://tech.company.com" class="link">tech.company.com</a></td>
+                    <td>2020-01-15</td>
+                </tr>
+                <tr style="background-color: #e3f2fd;">
+                    <td><strong>设计部</strong></td>
+                    <td><img src="https://picsum.photos/40/40?random=6" alt="设计部" class="company-logo"></td>
+                    <td>李设计</td>
+                    <td class="number-cell">12</td>
+                    <td><a href="https://design.company.com" class="link">design.company.com</a></td>
+                    <td>2020-03-20</td>
+                </tr>
+                <tr style="background-color: #fff3e0;">
+                    <td><strong>市场部</strong></td>
+                    <td><img src="https://picsum.photos/40/40?random=7" alt="市场部" class="company-logo"></td>
+                    <td>王市场</td>
+                    <td class="number-cell">18</td>
+                    <td><a href="https://marketing.company.com" class="link">marketing.company.com</a></td>
+                    <td>2020-02-10</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="test-section">
+        <h2>📈 性能测试表格</h2>
+        <div class="note">
+            <span class="feature-badge">大数据量</span>
+            <span class="feature-badge">性能测试</span>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>随机数据</th>
+                    <th>时间戳</th>
+                    <th>状态</th>
+                </tr>
+            </thead>
+            <tbody id="performanceTableBody">
+                <!-- 动态生成大量数据 -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="test-section">
+        <h2>📋 配置测试检查清单</h2>
+        <div class="note">
+            <span class="feature-badge">交互测试</span>
+            <span class="feature-badge">配置验证</span>
+            <span class="feature-badge">功能检查</span>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>配置项</th>
+                    <th>测试内容</th>
+                    <th>预期效果</th>
+                    <th>测试结果</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>按钮文案模板</td>
+                    <td>修改buttonText配置中的{count}变量</td>
+                    <td>按钮文字显示自定义内容和实际数据条数</td>
+                    <td class="test-result">⬜ 待测试</td>
+                </tr>
+                <tr>
+                    <td>按钮样式预设</td>
+                    <td>在配置页面选择不同样式预设</td>
+                    <td>按钮颜色、渐变和阴影效果改变</td>
+                    <td class="test-result">⬜ 待测试</td>
+                </tr>
+                <tr>
+                    <td>自定义按钮样式</td>
+                    <td>使用custom样式并调整颜色和大小</td>
+                    <td>按钮按照自定义样式显示</td>
+                    <td class="test-result">⬜ 待测试</td>
+                </tr>
+                <tr>
+                    <td>文件名模板</td>
+                    <td>修改filename为"{title}_{date}_{time}"</td>
+                    <td>下载文件名包含页面标题、日期和时间</td>
+                    <td class="test-result">⬜ 待测试</td>
+                </tr>
+                <tr>
+                    <td>工作表名称</td>
+                    <td>修改sheetName为"数据导出"</td>
+                    <td>Excel文件中工作表名称显示为"数据导出"</td>
+                    <td class="test-result">⬜ 待测试</td>
+                </tr>
+                <tr>
+                    <td>日期格式</td>
+                    <td>选择不同的日期格式选项</td>
+                    <td>文件名中日期按所选格式显示</td>
+                    <td class="test-result">⬜ 待测试</td>
+                </tr>
+                <tr>
+                    <td>图片导出</td>
+                    <td>关闭includeImages选项</td>
+                    <td>Excel中不包含图片，只显示空白单元格</td>
+                    <td class="test-result">⬜ 待测试</td>
+                </tr>
+                <tr>
+                    <td>超链接保持</td>
+                    <td>关闭includeLinks选项</td>
+                    <td>Excel中链接变为普通文本，失去点击功能</td>
+                    <td class="test-result">⬜ 待测试</td>
+                </tr>
+                <tr>
+                    <td>样式保持</td>
+                    <td>关闭preserveStyles选项</td>
+                    <td>Excel中不保持原网页的样式格式</td>
+                    <td class="test-result">⬜ 待测试</td>
+                </tr>
+                <tr>
+                    <td>自动列宽</td>
+                    <td>关闭autoColumnWidth选项</td>
+                    <td>Excel列宽不会自动调整，保持默认宽度</td>
+                    <td class="test-result">⬜ 待测试</td>
+                </tr>
+                <tr>
+                    <td>图片尺寸限制</td>
+                    <td>设置maxImageWidth=100, maxImageHeight=80</td>
+                    <td>导出的图片尺寸被限制在100x80像素内</td>
+                    <td class="test-result">⬜ 待测试</td>
+                </tr>
+                <tr>
+                    <td>处理延迟</td>
+                    <td>将processingDelay设置为1000ms</td>
+                    <td>导出动画持续约1秒钟</td>
+                    <td class="test-result">⬜ 待测试</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="note">
+            <strong>💡 使用说明：</strong>点击"测试结果"列的单元格可以切换测试状态：待测试 → 通过 → 失败 → 待测试
+        </div>
+    </div>
+
+    <script>
+        // 动态生成大量测试数据
+        document.addEventListener('DOMContentLoaded', function() {
+            const tbody = document.getElementById('performanceTableBody');
+            const statuses = ['成功', '失败', '处理中', '等待'];
+            const statusClasses = ['status-success', 'status-error', 'status-warning', 'status-warning'];
+            
+            for (let i = 1; i <= 50; i++) {
+                const row = document.createElement('tr');
+                const statusIndex = Math.floor(Math.random() * statuses.length);
+                
+                row.innerHTML = `
+                    <td class="number-cell">${String(i).padStart(3, '0')}</td>
+                    <td class="number-cell">${Math.floor(Math.random() * 10000)}</td>
+                    <td>${new Date(Date.now() - Math.random() * 86400000 * 30).toLocaleString()}</td>
+                    <td class="${statusClasses[statusIndex]}">${statuses[statusIndex]}</td>
+                `;
+                
+                tbody.appendChild(row);
+            }
+            
+            // 添加测试结果交互功能
+            const testResults = document.querySelectorAll('.test-result');
+            testResults.forEach(cell => {
+                cell.style.cursor = 'pointer';
+                cell.style.userSelect = 'none';
+                cell.addEventListener('click', function() {
+                    if (this.textContent.includes('⬜ 待测试')) {
+                        this.textContent = '✅ 通过';
+                        this.style.color = '#4caf50';
+                        this.style.fontWeight = 'bold';
+                    } else if (this.textContent.includes('✅ 通过')) {
+                        this.textContent = '❌ 失败';
+                        this.style.color = '#f44336';
+                        this.style.fontWeight = 'bold';
+                    } else {
+                        this.textContent = '⬜ 待测试';
+                        this.style.color = '#666';
+                        this.style.fontWeight = 'normal';
+                    }
+                });
+                
+                // 添加悬停效果
+                cell.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = '#f0f0f0';
+                });
+                
+                cell.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = '';
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

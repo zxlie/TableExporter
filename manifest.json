@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Table Exporter",
+  "version": "1.0.0",
+  "description": "自动识别页面上的table，并为每个table添加导出为Excel的按钮。",
+  "icons": {
+    "16": "img/icon-16.png",
+    "32": "img/icon-32.png",
+    "48": "img/icon-48.png",
+    "128": "img/icon-128.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_icon": {
+      "16": "img/icon-16.png",
+      "32": "img/icon-32.png",
+      "48": "img/icon-48.png",
+      "128": "img/icon-128.png"
+    }
+  },
+  "options_page": "options.html",
+  "permissions": [
+    "scripting",
+    "activeTab",
+    "storage"
+  ]
+} 

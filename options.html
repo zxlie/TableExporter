@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Exporter - 设置</title>
+    <link rel="stylesheet" href="options.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Table Exporter 设置</h1>
+            <p>配置导出按钮样式和Excel参数</p>
+        </header>
+
+        <div id="welcomeSection" class="settings-section" style="background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%); border-left: 4px solid #2196f3;">
+            <h2>🎉 欢迎使用 Table Exporter！</h2>
+            <p style="font-size: 16px; line-height: 1.6; margin-bottom: 15px;">
+                感谢安装本插件！您可以在下面配置导出按钮的样式、Excel文件的格式和各种导出参数。
+            </p>
+            <div style="background: rgba(255,255,255,0.8); padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <h3 style="margin-bottom: 10px; color: #1976d2;">🚀 快速开始：</h3>
+                <ol style="margin: 0; padding-left: 20px;">
+                    <li>配置完成后点击"保存设置"</li>
+                    <li>访问任何包含表格的网页</li>
+                    <li>点击插件图标激活功能</li>
+                    <li>表格上方会出现"导出数据到Excel"按钮</li>
+                </ol>
+            </div>
+            <button id="dismissWelcome" style="background: #2196f3; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; float: right;">
+                我知道了，不再显示
+            </button>
+            <div style="clear: both;"></div>
+        </div>
+
+        <div class="settings-section">
+            <h2>🎨 按钮样式设置</h2>
+            
+            <div class="form-group">
+                <label for="buttonText">按钮文案模板：</label>
+                <input type="text" id="buttonText" placeholder="导出数据到Excel（{count}条）">
+                <small>使用 {count} 表示数据条数</small>
+            </div>
+
+            <div class="form-group">
+                <label for="buttonStyle">按钮样式预设：</label>
+                <select id="buttonStyle">
+                    <option value="default">默认橙色渐变</option>
+                    <option value="blue">蓝色商务风</option>
+                    <option value="green">绿色清新风</option>
+                    <option value="purple">紫色科技风</option>
+                    <option value="red">红色警示风</option>
+                    <option value="dark">暗色主题</option>
+                    <option value="minimal">极简风格</option>
+                    <option value="custom">自定义样式</option>
+                </select>
+            </div>
+
+            <div id="customStyleSection" class="form-group" style="display: none;">
+                <label>自定义样式：</label>
+                <div class="custom-style-grid">
+                    <div>
+                        <label for="bgColor">背景色：</label>
+                        <input type="color" id="bgColor" value="#ff9800">
+                    </div>
+                    <div>
+                        <label for="textColor">文字颜色：</label>
+                        <input type="color" id="textColor" value="#ffffff">
+                    </div>
+                    <div>
+                        <label for="fontSize">字体大小：</label>
+                        <input type="range" id="fontSize" min="12" max="24" value="17">
+                        <span id="fontSizeValue">17px</span>
+                    </div>
+                    <div>
+                        <label for="borderRadius">圆角：</label>
+                        <input type="range" id="borderRadius" min="0" max="20" value="6">
+                        <span id="borderRadiusValue">6px</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="buttonPosition">按钮位置：</label>
+                <select id="buttonPosition">
+                    <option value="top">表格上方</option>
+                    <option value="bottom">表格下方</option>
+                    <option value="both">上方和下方</option>
+                </select>
+            </div>
+
+            <div class="button-preview">
+                <h3>预览效果：</h3>
+                <button id="previewButton" class="export-btn">导出数据到Excel（示例）</button>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <h2>📊 Excel导出设置</h2>
+            
+            <div class="form-group">
+                <label for="filename">文件名模板：</label>
+                <input type="text" id="filename" placeholder="{title}_{date}_{index}">
+                <small>支持变量：{title}(页面标题), {date}(日期), {index}(表格序号), {time}(时间)</small>
+            </div>
+
+            <div class="form-group">
+                <label for="sheetName">工作表名称：</label>
+                <input type="text" id="sheetName" placeholder="Sheet1">
+            </div>
+
+            <div class="form-group">
+                <label for="dateFormat">日期格式：</label>
+                <select id="dateFormat">
+                    <option value="YYYYMMDD">20240101</option>
+                    <option value="YYYY-MM-DD">2024-01-01</option>
+                    <option value="YYYY/MM/DD">2024/01/01</option>
+                    <option value="MMDDYYYY">01012024</option>
+                    <option value="DD-MM-YYYY">01-01-2024</option>
+                </select>
+            </div>
+
+            <div class="checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="includeImages" checked>
+                    <span class="checkmark"></span>
+                    导出图片
+                </label>
+                
+                <label class="checkbox-label">
+                    <input type="checkbox" id="includeLinks" checked>
+                    <span class="checkmark"></span>
+                    保持超链接
+                </label>
+                
+                <label class="checkbox-label">
+                    <input type="checkbox" id="preserveStyles" checked>
+                    <span class="checkmark"></span>
+                    保持样式格式
+                </label>
+                
+                <label class="checkbox-label">
+                    <input type="checkbox" id="autoColumnWidth" checked>
+                    <span class="checkmark"></span>
+                    自动调整列宽
+                </label>
+                
+                <label class="checkbox-label">
+                    <input type="checkbox" id="freezeHeader">
+                    <span class="checkmark"></span>
+                    冻结表头
+                </label>
+                
+                <label class="checkbox-label">
+                    <input type="checkbox" id="addBorders" checked>
+                    <span class="checkmark"></span>
+                    添加边框
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label for="maxImageSize">最大图片尺寸：</label>
+                <div class="size-inputs">
+                    <input type="number" id="maxImageWidth" placeholder="200" min="50" max="500">
+                    <span>×</span>
+                    <input type="number" id="maxImageHeight" placeholder="150" min="50" max="400">
+                    <span>像素</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="compression">Excel压缩级别：</label>
+                <select id="compression">
+                    <option value="none">无压缩（最快）</option>
+                    <option value="fast">快速压缩</option>
+                    <option value="normal" selected>标准压缩</option>
+                    <option value="best">最佳压缩（文件最小）</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <h2>⚡ 性能设置</h2>
+            
+            <div class="form-group">
+                <label for="maxRows">最大导出行数：</label>
+                <input type="number" id="maxRows" placeholder="10000" min="100" max="100000">
+                <small>设置较小值可提高性能，防止浏览器卡顿</small>
+            </div>
+
+            <div class="form-group">
+                <label for="processingDelay">处理延迟（毫秒）：</label>
+                <input type="number" id="processingDelay" placeholder="600" min="200" max="3000">
+                <small>导出动画显示时间</small>
+            </div>
+
+            <div class="checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="showProgress" checked>
+                    <span class="checkmark"></span>
+                    显示进度动画
+                </label>
+                
+                <label class="checkbox-label">
+                    <input type="checkbox" id="enableDebug">
+                    <span class="checkmark"></span>
+                    启用调试日志
+                </label>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button id="saveButton" class="save-btn">💾 保存设置</button>
+            <button id="resetButton" class="reset-btn">🔄 重置默认</button>
+            <button id="exportConfig" class="export-btn">📤 导出配置</button>
+            <button id="importConfig" class="import-btn">📥 导入配置</button>
+            <input type="file" id="configFile" accept=".json" style="display: none;">
+        </div>
+
+        <div id="status" class="status hidden"></div>
+    </div>
+
+    <script src="options.js"></script>
+</body>
+</html> 
