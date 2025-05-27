@@ -6,7 +6,6 @@ yarn-error.log*
 
 # 构建产物
 dist/
-*.zip
 
 # 操作系统生成的文件
 .DS_Store
@@ -31,3 +30,4 @@ BUILD.md
 table-repter-extension.zip 
 dist/ 
 node_modules
+output/
