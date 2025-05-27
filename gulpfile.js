@@ -8,19 +8,19 @@ const zip = require('gulp-zip');
 // 定义路径
 const paths = {
   html: {
-    src: ['*.html', '!test-page.html'], // 排除 test-page.html
+    src: ['app/*.html', '!app/test-page.html'], // 排除 test-page.html
     dest: 'dist/'
   },
   css: {
-    src: '*.css',
+    src: 'app/*.css',
     dest: 'dist/'
   },
   js: {
-    src: ['*.js', '!gulpfile.js', '!exceljs.min.js'], // 排除 gulpfile 和已经压缩的文件
+    src: ['app/*.js', '!app/gulpfile.js', '!app/exceljs.min.js'], // 排除 gulpfile 和已经压缩的文件
     dest: 'dist/'
   },
   assets: {
-    src: ['img/**/*', 'manifest.json', 'exceljs.min.js', 'README.md'],
+    src: ['app/img/**/*', 'app/manifest.json', 'app/exceljs.min.js', 'README.md'],
     dest: 'dist/'
   }
 };
@@ -68,7 +68,7 @@ function js() {
 
 // 复制其他资源文件（图片、manifest、已压缩的库等）
 function assets() {
-  return gulp.src(paths.assets.src, { base: '.' })
+  return gulp.src(paths.assets.src, { base: 'app' })
     .pipe(gulp.dest(paths.assets.dest));
 }
 
@@ -76,7 +76,7 @@ function assets() {
 function zipBuild() {
   return gulp.src('dist/**/*')
     .pipe(zip('table-reporter-extension.zip'))
-    .pipe(gulp.dest('.'));
+    .pipe(gulp.dest('dist/'));
 }
 
 // 监听文件变化
