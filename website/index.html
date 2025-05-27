@@ -24,8 +24,8 @@
     <link rel="icon" type="image/png" href="./img/icon-32.png">
     <link rel="apple-touch-icon" href="./img/icon-128.png">
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Local Fonts -->
+    <link rel="stylesheet" href="assets/css/fonts.css">
     
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
@@ -46,8 +46,10 @@
                 <a href="#features" class="nav-link">功能特性</a>
                 <a href="#how-to-use" class="nav-link">使用教程</a>
                 <a href="#demo" class="nav-link">在线演示</a>
+                <a href="test-case.html" class="nav-link" target="_blank">🧪 测试中心</a>
                 <a href="#download" class="nav-link">立即下载</a>
-                <a href="https://github.com/yourusername/TableExporter" class="nav-link" target="_blank">
+                <a href="#donate" class="nav-link">☕ 打赏</a>
+                <a href="https://github.com/zxlie/TableExporter" class="nav-link" target="_blank">
                     <i class="fab fa-github"></i>
                 </a>
             </div>
@@ -101,17 +103,13 @@
                     </div>
                 </div>
                 <div class="hero-image">
-                    <div class="browser-mockup">
-                        <div class="browser-header">
-                            <div class="browser-buttons">
-                                <span class="btn-close"></span>
-                                <span class="btn-minimize"></span>
-                                <span class="btn-maximize"></span>
+                    <div class="demo-screenshot">
+                        <img src="assets/images/demo-screenshot.png" alt="TableExporter 演示截图" class="demo-img">
+                        <div class="demo-overlay">
+                            <div class="demo-badge">
+                                <i class="fas fa-play"></i>
+                                <span>实际演示效果</span>
                             </div>
-                            <div class="browser-url">https://example.com/data-table</div>
-                        </div>
-                        <div class="browser-content">
-                            <img src="assets/images/demo-screenshot.png" alt="TableExporter 演示截图" class="demo-image">
                         </div>
                     </div>
                 </div>
@@ -223,8 +221,22 @@
                     <div class="step-content">
                         <h3 class="step-title">安装插件</h3>
                         <p class="step-description">在Chrome Web Store搜索"TableExporter"或直接点击安装链接，一键安装到浏览器</p>
-                        <div class="step-image">
-                            <img src="assets/images/step1.png" alt="安装步骤">
+                        <div class="step-visual">
+                            <div class="step-icon-large">
+                                <i class="fab fa-chrome"></i>
+                            </div>
+                            <div class="step-demo">
+                                <div class="chrome-store-card">
+                                    <div class="store-header">
+                                        <img src="./img/icon-48.png" alt="TableExporter" class="store-icon">
+                                        <div class="store-info">
+                                            <h4>TableExporter</h4>
+                                            <p>表格导出神器</p>
+                                        </div>
+                                    </div>
+                                    <button class="store-install-btn">添加至Chrome</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -234,8 +246,30 @@
                     <div class="step-content">
                         <h3 class="step-title">配置样式</h3>
                         <p class="step-description">右键插件图标选择"选项"，配置按钮样式和导出参数</p>
-                        <div class="step-image">
-                            <img src="assets/images/step2.png" alt="配置步骤">
+                        <div class="step-visual">
+                            <div class="step-icon-large">
+                                <i class="fas fa-cog"></i>
+                            </div>
+                            <div class="step-demo">
+                                <div class="config-panel">
+                                    <div class="config-header">
+                                        <h4>⚙️ 插件设置</h4>
+                                    </div>
+                                    <div class="config-options">
+                                        <div class="config-item">
+                                            <span>按钮样式</span>
+                                            <select class="config-select">
+                                                <option>现代蓝色</option>
+                                            </select>
+                                        </div>
+                                        <div class="config-item">
+                                            <span>文件名模板</span>
+                                            <input type="text" value="表格数据_{date}" class="config-input">
+                                        </div>
+                                    </div>
+                                    <button class="config-save-btn">保存设置</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -245,8 +279,31 @@
                     <div class="step-content">
                         <h3 class="step-title">导出表格</h3>
                         <p class="step-description">在包含表格的页面点击插件图标激活，然后点击导出按钮</p>
-                        <div class="step-image">
-                            <img src="assets/images/step3.png" alt="使用步骤">
+                        <div class="step-visual">
+                            <div class="step-icon-large">
+                                <i class="fas fa-mouse-pointer"></i>
+                            </div>
+                            <div class="step-demo">
+                                <div class="usage-demo">
+                                    <div class="demo-webpage">
+                                        <div class="webpage-header">
+                                            <span>📊 数据页面</span>
+                                        </div>
+                                        <div class="mini-table">
+                                            <div class="mini-row">
+                                                <span>产品</span><span>价格</span>
+                                            </div>
+                                            <div class="mini-row">
+                                                <span>iPhone</span><span>¥5999</span>
+                                            </div>
+                                        </div>
+                                        <button class="export-highlight-btn">
+                                            <i class="fas fa-download"></i>
+                                            导出Excel
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -363,13 +420,13 @@
                                 <tbody>
                                     <tr>
                                         <td style="font-weight: bold; color: #2c3e50;">张三</td>
-                                        <td><img src="https://via.placeholder.com/40x40/ff6b6b/ffffff?text=张" alt="头像" style="border-radius: 50%; width: 40px; height: 40px;"></td>
+                                        <td><div class="avatar-demo" style="background: #ff6b6b; color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px;">张</div></td>
                                         <td><a href="#" style="color: #3498db; text-decoration: underline;">查看详情</a></td>
                                         <td style="background-color: #2ecc71; color: white; text-align: center; border-radius: 4px;">优秀</td>
                                     </tr>
                                     <tr>
                                         <td style="font-weight: bold; color: #2c3e50;">李四</td>
-                                        <td><img src="https://via.placeholder.com/40x40/4ecdc4/ffffff?text=李" alt="头像" style="border-radius: 50%; width: 40px; height: 40px;"></td>
+                                        <td><div class="avatar-demo" style="background: #4ecdc4; color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px;">李</div></td>
                                         <td><a href="#" style="color: #3498db; text-decoration: underline;">查看详情</a></td>
                                         <td style="background-color: #f39c12; color: white; text-align: center; border-radius: 4px;">良好</td>
                                     </tr>
@@ -414,7 +471,7 @@
                             <i class="fab fa-chrome"></i>
                             Chrome商店安装
                         </a>
-                        <a href="https://github.com/yourusername/TableExporter" class="btn btn-secondary btn-large" target="_blank">
+                        <a href="https://github.com/zxlie/TableExporter" class="btn btn-secondary btn-large" target="_blank">
                             <i class="fab fa-github"></i>
                             查看源码
                         </a>
@@ -427,8 +484,14 @@
                 </div>
                 
                 <div class="download-image">
-                    <div class="phone-mockup">
-                        <img src="assets/images/extension-preview.png" alt="TableExporter 扩展预览">
+                    <div class="extension-preview">
+                        <img src="assets/images/extension-preview.png" alt="TableExporter 扩展预览" class="extension-img">
+                        <div class="preview-overlay">
+                            <div class="preview-badge">
+                                <i class="fab fa-chrome"></i>
+                                <span>Chrome 扩展</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -507,6 +570,93 @@
         </div>
     </section>
 
+    <!-- 微信打赏 -->
+    <section id="donate" class="donate">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">☕ 支持我们</h2>
+                <p class="section-subtitle">如果TableExporter对您有帮助，欢迎请我们喝杯咖啡</p>
+            </div>
+            
+            <div class="donate-content">
+                <div class="donate-text">
+                    <h3 class="donate-title">为什么需要您的支持？</h3>
+                    <ul class="donate-reasons">
+                        <li>
+                            <i class="fas fa-code"></i>
+                            <span>持续开发新功能和优化用户体验</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-server"></i>
+                            <span>维护服务器和开发环境运行成本</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-headset"></i>
+                            <span>提供更好的技术支持和用户服务</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-rocket"></i>
+                            <span>激励团队创造更多优质的开源项目</span>
+                        </li>
+                    </ul>
+                    
+                    <div class="donate-stats">
+                        <div class="donate-stat">
+                            <span class="stat-number">100%</span>
+                            <span class="stat-label">开源免费</span>
+                        </div>
+                        <div class="donate-stat">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">持续维护</span>
+                        </div>
+                        <div class="donate-stat">
+                            <span class="stat-number">❤️</span>
+                            <span class="stat-label">用爱发电</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="donate-qr">
+                    <div class="qr-container">
+                        <div class="qr-header">
+                            <i class="fab fa-weixin"></i>
+                            <span>微信扫码打赏</span>
+                        </div>
+                        <div class="qr-image">
+                            <img src="./img/donate.jpeg" alt="微信打赏二维码" />
+                            <div class="qr-overlay">
+                                <i class="fas fa-qrcode"></i>
+                                <span>长按保存二维码</span>
+                            </div>
+                        </div>
+                        <div class="qr-footer">
+                            <p>感谢您的支持与鼓励！</p>
+                            <p class="qr-tip">每一份打赏都是我们前进的动力</p>
+                        </div>
+                    </div>
+                    
+                    <div class="donate-alternatives">
+                        <h4>其他支持方式</h4>
+                        <div class="alternative-buttons">
+                            <a href="https://github.com/zxlie/TableExporter" class="alt-btn" target="_blank">
+                                <i class="fas fa-star"></i>
+                                GitHub Star
+                            </a>
+                            <a href="https://github.com/zxlie/TableExporter/issues" class="alt-btn" target="_blank">
+                                <i class="fas fa-bug"></i>
+                                反馈问题
+                            </a>
+                            <a href="#" class="alt-btn" onclick="shareProject()">
+                                <i class="fas fa-share-alt"></i>
+                                分享推荐
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- 页脚 -->
     <footer class="footer">
         <div class="container">
@@ -520,7 +670,7 @@
                         专业的网页表格导出工具，让数据处理变得简单高效。
                     </p>
                     <div class="footer-social">
-                        <a href="https://github.com/yourusername/TableExporter" target="_blank">
+                        <a href="https://github.com/zxlie/TableExporter" target="_blank">
                             <i class="fab fa-github"></i>
                         </a>
                         <a href="#" target="_blank">
@@ -556,8 +706,8 @@
                     <h4 class="footer-title">关于</h4>
                     <ul class="footer-links">
                         <li><a href="about.html">关于我们</a></li>
-                        <li><a href="https://github.com/yourusername/TableExporter/blob/main/LICENSE" target="_blank">开源协议</a></li>
-                        <li><a href="https://github.com/yourusername/TableExporter/issues" target="_blank">问题反馈</a></li>
+                        <li><a href="https://github.com/zxlie/TableExporter/blob/main/LICENSE" target="_blank">开源协议</a></li>
+                        <li><a href="https://github.com/zxlie/TableExporter/issues" target="_blank">问题反馈</a></li>
                         <li><a href="./img/donate.jpeg" target="_blank">赞助项目</a></li>
                     </ul>
                 </div>

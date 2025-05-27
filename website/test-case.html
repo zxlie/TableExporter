@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TableExporter - 综合测试中心</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .nav-tabs {
+            background: white;
+            border-bottom: 2px solid #e0e0e0;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .nav-tab {
+            padding: 15px 25px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .nav-tab:hover {
+            color: #ff9800;
+            background: rgba(255, 152, 0, 0.05);
+        }
+        
+        .nav-tab.active {
+            color: #ff9800;
+            border-bottom-color: #ff9800;
+            background: rgba(255, 152, 0, 0.1);
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 40px 20px;
+            background: white;
+            margin: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .test-section {
+            margin-bottom: 40px;
+            padding: 25px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            background: #fafafa;
+            transition: all 0.3s ease;
+        }
+        
+        .test-section:hover {
+            border-color: #ff9800;
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.1);
+        }
+        
+        .test-section h3 {
+            color: #ff9800;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            border-bottom: 2px solid #ff9800;
+            padding-bottom: 8px;
+        }
+        
+        .feature-badges {
+            margin-bottom: 20px;
+        }
+        
+        .feature-badge {
+            display: inline-block;
+            background: #4caf50;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 2px 4px;
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+            color: white;
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        tr:hover {
+            background-color: #e3f2fd;
+        }
+        
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .company-logo {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+        
+        .link {
+            color: #1976d2;
+            text-decoration: none;
+        }
+        
+        .link:hover {
+            text-decoration: underline;
+        }
+        
+        .highlight {
+            background-color: #ffeb3b;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        
+        .status-success {
+            color: #4caf50;
+            font-weight: bold;
+        }
+        
+        .status-warning {
+            color: #ff9800;
+            font-weight: bold;
+        }
+        
+        .status-error {
+            color: #f44336;
+            font-weight: bold;
+        }
+        
+        .number-cell {
+            text-align: right;
+            font-family: 'Courier New', monospace;
+            background-color: #e8f5e8;
+        }
+        
+        .test-result {
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .test-result:hover {
+            background-color: #f0f0f0 !important;
+            transform: scale(1.05);
+        }
+        
+        .instructions {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 5px solid #2196f3;
+        }
+        
+        .note {
+            background: #fff3e0;
+            padding: 15px;
+            border-left: 4px solid #ff9800;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .btn {
+            background: #ff9800;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn:hover {
+            background: #f57c00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #2196f3;
+        }
+        
+        .btn-secondary:hover {
+            background: #1976d2;
+        }
+        
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        /* 宣传图样式 */
+        .promo-image {
+            width: 440px;
+            height: 280px;
+            background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            margin: 20px auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .large-promo-image {
+            width: 1400px;
+            height: 560px;
+            background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+            border-radius: 16px;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            color: white;
+            transform: scale(0.4);
+            transform-origin: center;
+        }
+        
+        .large-content {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            padding: 0 80px;
+        }
+        
+        .large-left {
+            flex: 1;
+            padding-right: 60px;
+        }
+        
+        .large-right {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .large-logo-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .large-logo-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            font-size: 40px;
+            backdrop-filter: blur(15px);
+        }
+        
+        .large-app-name {
+            font-size: 56px;
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .large-tagline {
+            font-size: 28px;
+            margin: 20px 0 40px 0;
+            opacity: 0.95;
+            font-weight: 400;
+            line-height: 1.3;
+        }
+        
+        .large-features {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .large-feature {
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+            opacity: 0.95;
+        }
+        
+        .large-feature-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            font-size: 24px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .table-preview {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            padding: 40px;
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .preview-table {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transform: perspective(600px) rotateY(-15deg) rotateX(5deg);
+        }
+        
+        .preview-header {
+            background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%);
+            color: white;
+            padding: 16px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .preview-row {
+            display: flex;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .preview-cell {
+            padding: 12px 16px;
+            flex: 1;
+            color: #333;
+            border-right: 1px solid #eee;
+        }
+        
+        .preview-cell:last-child {
+            border-right: none;
+        }
+        
+        .large-decorative-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+        
+        .large-circle1 {
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+        }
+        
+        .large-circle2 {
+            position: absolute;
+            bottom: -120px;
+            left: -120px;
+            width: 350px;
+            height: 350px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 50%;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 24px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .app-name {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tagline {
+            font-size: 14px;
+            margin: 8px 0 20px 0;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+        
+        .features {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 380px;
+            margin-top: 15px;
+        }
+        
+        .feature {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 11px;
+            opacity: 0.95;
+        }
+        
+        .feature-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 4px;
+            font-size: 16px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .decorative-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+        
+        .circle1 {
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+        
+        .circle2 {
+            position: absolute;
+            bottom: -40px;
+            left: -40px;
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+        }
+        
+        .size-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .toggle-btn {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-btn.active {
+            background: #ff9800;
+        }
+        
+        .toggle-btn:hover {
+            transform: translateY(-1px);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .result-display {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .color-preview {
+            width: 50px;
+            height: 30px;
+            border: 1px solid #ccc;
+            display: inline-block;
+            margin-left: 10px;
+            border-radius: 4px;
+        }
+        
+        .test-btn {
+            padding: 10px 20px;
+            background: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .test-btn:hover {
+            background: #1976d2;
+            transform: translateY(-1px);
+        }
+        
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-tab {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .large-promo-image {
+                transform: scale(0.25);
+            }
+            
+            .container {
+                padding: 0 10px;
+            }
+            
+            .tab-content {
+                margin: 10px;
+                padding: 20px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>🧪 TableExporter 综合测试中心</h1>
+            <p>功能测试 | 宣传图生成 | 样式验证 | 性能检测</p>
+        </div>
+    </div>
+    
+    <nav class="nav-tabs">
+        <button class="nav-tab active" onclick="showTab('function-test')">🚀 功能测试</button>
+        <button class="nav-tab" onclick="showTab('promo-generator')">🎨 宣传图生成</button>
+        <button class="nav-tab" onclick="showTab('gradient-test')">🌈 渐变测试</button>
+        <button class="nav-tab" onclick="showTab('performance-test')">⚡ 性能测试</button>
+        <button class="nav-tab" onclick="showTab('config-test')">⚙️ 配置测试</button>
+    </nav>
+    
+    <!-- 功能测试标签页 -->
+    <div id="function-test" class="tab-content active">
+        <div class="container">
+            <div class="instructions">
+                <h3>📋 功能测试说明</h3>
+                <ol>
+                    <li><strong>安装插件</strong>：插件会自动打开配置页面</li>
+                    <li><strong>配置插件</strong>：在配置页面调整样式和导出参数</li>
+                    <li><strong>激活功能</strong>：点击插件图标激活导出功能</li>
+                    <li><strong>测试导出</strong>：点击表格上方的导出按钮</li>
+                    <li><strong>验证效果</strong>：检查下载的Excel文件</li>
+                </ol>
+                <div class="note">
+                    <strong>💡 测试功能：</strong>
+                    每个表格都会自动添加导出按钮，点击即可下载Excel文件。修改配置后刷新页面查看按钮样式变化。
+                </div>
+            </div>
+            
+            <div class="test-section">
+                <h3>👥 员工信息表格</h3>
+                <div class="feature-badges">
+                    <span class="feature-badge">图片导出</span>
+                    <span class="feature-badge">超链接</span>
+                    <span class="feature-badge">样式保持</span>
+                    <span class="feature-badge">数据类型</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>头像</th>
+                            <th>姓名</th>
+                            <th>部门</th>
+                            <th>职位</th>
+                            <th>邮箱</th>
+                            <th>薪资</th>
+                            <th>状态</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="number-cell">001</td>
+                            <td><img src="https://picsum.photos/50/50?random=1" alt="张三" class="avatar"></td>
+                            <td><span class="highlight">张三</span></td>
+                            <td>技术部</td>
+                            <td>前端工程师</td>
+                            <td><a href="mailto:zhangsan@company.com" class="link">zhangsan@company.com</a></td>
+                            <td class="number-cell">15000.00</td>
+                            <td class="status-success">在职</td>
+                        </tr>
+                        <tr>
+                            <td class="number-cell">002</td>
+                            <td><img src="https://picsum.photos/50/50?random=2" alt="李四" class="avatar"></td>
+                            <td>李四</td>
+                            <td>技术部</td>
+                            <td>后端工程师</td>
+                            <td><a href="mailto:lisi@company.com" class="link">lisi@company.com</a></td>
+                            <td class="number-cell">18000.50</td>
+                            <td class="status-success">在职</td>
+                        </tr>
+                        <tr>
+                            <td class="number-cell">003</td>
+                            <td><img src="https://picsum.photos/50/50?random=3" alt="王五" class="avatar"></td>
+                            <td>王五</td>
+                            <td>设计部</td>
+                            <td>UI设计师</td>
+                            <td><a href="mailto:wangwu@company.com" class="link">wangwu@company.com</a></td>
+                            <td class="number-cell">13500.75</td>
+                            <td class="status-warning">试用期</td>
+                        </tr>
+                        <tr>
+                            <td class="number-cell">004</td>
+                            <td><img src="https://picsum.photos/50/50?random=4" alt="赵六" class="avatar"></td>
+                            <td>赵六</td>
+                            <td>市场部</td>
+                            <td>市场专员</td>
+                            <td><a href="mailto:zhaoliu@company.com" class="link">zhaoliu@company.com</a></td>
+                            <td class="number-cell">12000.00</td>
+                            <td class="status-error">离职</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="test-section">
+                <h3>📊 销售数据统计</h3>
+                <div class="feature-badges">
+                    <span class="feature-badge">数字格式</span>
+                    <span class="feature-badge">合并单元格</span>
+                    <span class="feature-badge">复杂表头</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th rowspan="2">产品</th>
+                            <th colspan="2">第一季度</th>
+                            <th colspan="2">第二季度</th>
+                            <th rowspan="2">总计</th>
+                        </tr>
+                        <tr>
+                            <th>销量</th>
+                            <th>收入</th>
+                            <th>销量</th>
+                            <th>收入</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>产品A</td>
+                            <td class="number-cell">1250</td>
+                            <td class="number-cell">125000.00</td>
+                            <td class="number-cell">1400</td>
+                            <td class="number-cell">140000.00</td>
+                            <td class="number-cell">265000.00</td>
+                        </tr>
+                        <tr>
+                            <td>产品B</td>
+                            <td class="number-cell">890</td>
+                            <td class="number-cell">89000.00</td>
+                            <td class="number-cell">1050</td>
+                            <td class="number-cell">105000.00</td>
+                            <td class="number-cell">194000.00</td>
+                        </tr>
+                        <tr>
+                            <td>产品C</td>
+                            <td class="number-cell">760</td>
+                            <td class="number-cell">76000.00</td>
+                            <td class="number-cell">820</td>
+                            <td class="number-cell">82000.00</td>
+                            <td class="number-cell">158000.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="test-section">
+                <h3>🏢 公司部门信息</h3>
+                <div class="feature-badges">
+                    <span class="feature-badge">链接保持</span>
+                    <span class="feature-badge">背景色</span>
+                    <span class="feature-badge">Logo图片</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>部门</th>
+                            <th>Logo</th>
+                            <th>负责人</th>
+                            <th>人数</th>
+                            <th>部门主页</th>
+                            <th>成立时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background-color: #e8f5e8;">
+                            <td><strong>技术部</strong></td>
+                            <td><img src="https://picsum.photos/40/40?random=5" alt="技术部" class="company-logo"></td>
+                            <td>张技术</td>
+                            <td class="number-cell">25</td>
+                            <td><a href="https://tech.company.com" class="link">tech.company.com</a></td>
+                            <td>2020-01-15</td>
+                        </tr>
+                        <tr style="background-color: #e3f2fd;">
+                            <td><strong>设计部</strong></td>
+                            <td><img src="https://picsum.photos/40/40?random=6" alt="设计部" class="company-logo"></td>
+                            <td>李设计</td>
+                            <td class="number-cell">12</td>
+                            <td><a href="https://design.company.com" class="link">design.company.com</a></td>
+                            <td>2020-03-20</td>
+                        </tr>
+                        <tr style="background-color: #fff3e0;">
+                            <td><strong>市场部</strong></td>
+                            <td><img src="https://picsum.photos/40/40?random=7" alt="市场部" class="company-logo"></td>
+                            <td>王市场</td>
+                            <td class="number-cell">18</td>
+                            <td><a href="https://marketing.company.com" class="link">marketing.company.com</a></td>
+                            <td>2020-02-10</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 宣传图生成标签页 -->
+    <div id="promo-generator" class="tab-content">
+        <div class="container">
+            <div class="instructions">
+                <h3>🎨 宣传图生成器</h3>
+                <p>为Chrome Web Store生成标准尺寸的宣传图片，支持小型宣传图块(440x280)和顶部宣传图块(1400x560)。</p>
+            </div>
+            
+            <div class="size-toggle">
+                <button class="toggle-btn active" onclick="showPromoSize('small')">小型宣传图块 (440x280)</button>
+                <button class="toggle-btn" onclick="showPromoSize('large')">顶部宣传图块 (1400x560)</button>
+            </div>
+            
+            <div class="promo-image" id="smallPromoImage">
+                <div class="decorative-elements">
+                    <div class="circle1"></div>
+                    <div class="circle2"></div>
+                </div>
+                
+                <div class="logo-section">
+                    <div class="logo-icon">📊</div>
+                    <h1 class="app-name">TableExporter</h1>
+                </div>
+                
+                <p class="tagline">一键导出网页表格为Excel文件</p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon">⚡</div>
+                        <span>快速导出</span>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🎨</div>
+                        <span>保留样式</span>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🔒</div>
+                        <span>本地处理</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="large-promo-image hidden" id="largePromoImage">
+                <div class="large-decorative-elements">
+                    <div class="large-circle1"></div>
+                    <div class="large-circle2"></div>
+                </div>
+                
+                <div class="large-content">
+                    <div class="large-left">
+                        <div class="large-logo-section">
+                            <div class="large-logo-icon">📊</div>
+                            <h1 class="large-app-name">TableExporter</h1>
+                        </div>
+                        
+                        <p class="large-tagline">轻松导出网页表格为Excel文件<br>保留原始样式和格式</p>
+                        
+                        <div class="large-features">
+                            <div class="large-feature">
+                                <div class="large-feature-icon">⚡</div>
+                                <span>一键快速导出，无需复杂操作</span>
+                            </div>
+                            <div class="large-feature">
+                                <div class="large-feature-icon">🎨</div>
+                                <span>完美保留表格样式和背景色</span>
+                            </div>
+                            <div class="large-feature">
+                                <div class="large-feature-icon">🔒</div>
+                                <span>本地处理，保护数据隐私安全</span>
+                            </div>
+                            <div class="large-feature">
+                                <div class="large-feature-icon">🌐</div>
+                                <span>支持所有网站的HTML表格</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="large-right">
+                        <div class="table-preview">
+                            <div class="preview-table">
+                                <div class="preview-header">
+                                    <span>产品名称</span>
+                                    <span>价格</span>
+                                    <span>库存</span>
+                                </div>
+                                <div class="preview-row">
+                                    <div class="preview-cell">iPhone 15 Pro</div>
+                                    <div class="preview-cell">¥9,999</div>
+                                    <div class="preview-cell">128</div>
+                                </div>
+                                <div class="preview-row">
+                                    <div class="preview-cell">MacBook Air</div>
+                                    <div class="preview-cell">¥8,999</div>
+                                    <div class="preview-cell">56</div>
+                                </div>
+                                <div class="preview-row">
+                                    <div class="preview-cell">iPad Pro</div>
+                                    <div class="preview-cell">¥6,999</div>
+                                    <div class="preview-cell">89</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button class="btn" onclick="downloadPromoImage('png')">下载为PNG (推荐)</button>
+                <button class="btn" onclick="downloadPromoImage('jpg')">下载为JPEG</button>
+            </div>
+            
+            <div class="note">
+                <h4>📝 使用说明</h4>
+                <ul>
+                    <li>点击上方的下载按钮，推荐使用PNG格式</li>
+                    <li>小型宣传图块：440x280像素，用于Chrome Web Store的小型宣传图块</li>
+                    <li>顶部宣传图块：1400x560像素，用于Chrome Web Store的顶部宣传图块</li>
+                    <li>上传到Chrome Web Store时选择对应的图片</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 渐变测试标签页 -->
+    <div id="gradient-test" class="tab-content">
+        <div class="container">
+            <div class="instructions">
+                <h3>🌈 渐变背景色测试</h3>
+                <p>测试插件对CSS渐变背景色的识别和导出能力，验证颜色提取算法的准确性。</p>
+            </div>
+            
+            <div class="test-section">
+                <h3>渐变颜色提取测试</h3>
+                <div class="controls">
+                    <button class="test-btn" onclick="testGradientExtraction()">测试渐变颜色提取</button>
+                    <button class="test-btn" onclick="testCellStyle()">测试表头样式</button>
+                </div>
+                
+                <table id="gradientTestTable">
+                    <thead>
+                        <tr>
+                            <th>姓名</th>
+                            <th>年龄</th>
+                            <th>部门</th>
+                            <th>职位</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>张三</td>
+                            <td>25</td>
+                            <td>技术部</td>
+                            <td>前端工程师</td>
+                        </tr>
+                        <tr>
+                            <td>李四</td>
+                            <td>30</td>
+                            <td>设计部</td>
+                            <td>UI设计师</td>
+                        </tr>
+                        <tr>
+                            <td>王五</td>
+                            <td>28</td>
+                            <td>产品部</td>
+                            <td>产品经理</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div id="gradientResult" class="result-display">
+                    <p>点击上方按钮开始测试...</p>
+                </div>
+            </div>
+            
+            <div class="test-section">
+                <h3>多种渐变样式测试</h3>
+                <table>
+                    <thead>
+                        <tr style="background: linear-gradient(45deg, #ff6b6b, #feca57);">
+                            <th>线性渐变 45°</th>
+                            <th>数据1</th>
+                            <th>数据2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>测试数据</td>
+                            <td>123</td>
+                            <td>456</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <table>
+                    <thead>
+                        <tr style="background: radial-gradient(circle, #667eea, #764ba2);">
+                            <th>径向渐变</th>
+                            <th>数据1</th>
+                            <th>数据2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>测试数据</td>
+                            <td>789</td>
+                            <td>012</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <table>
+                    <thead>
+                        <tr style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <th>复杂渐变</th>
+                            <th>数据1</th>
+                            <th>数据2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>测试数据</td>
+                            <td>345</td>
+                            <td>678</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 性能测试标签页 -->
+    <div id="performance-test" class="tab-content">
+        <div class="container">
+            <div class="instructions">
+                <h3>⚡ 性能测试</h3>
+                <p>测试插件在处理大量数据时的性能表现，验证导出速度和内存使用情况。</p>
+            </div>
+            
+            <div class="test-section">
+                <h3>📈 大数据量性能测试</h3>
+                <div class="feature-badges">
+                    <span class="feature-badge">大数据量</span>
+                    <span class="feature-badge">性能测试</span>
+                    <span class="feature-badge">内存优化</span>
+                </div>
+                <div class="controls">
+                    <button class="test-btn" onclick="generatePerformanceData(100)">生成100行数据</button>
+                    <button class="test-btn" onclick="generatePerformanceData(500)">生成500行数据</button>
+                    <button class="test-btn" onclick="generatePerformanceData(1000)">生成1000行数据</button>
+                    <button class="test-btn" onclick="clearPerformanceData()">清空数据</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>随机数据</th>
+                            <th>时间戳</th>
+                            <th>状态</th>
+                            <th>描述</th>
+                        </tr>
+                    </thead>
+                    <tbody id="performanceTableBody">
+                        <!-- 动态生成大量数据 -->
+                    </tbody>
+                </table>
+                <div id="performanceStats" class="result-display">
+                    <p>当前数据行数：0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 配置测试标签页 -->
+    <div id="config-test" class="tab-content">
+        <div class="container">
+            <div class="instructions">
+                <h3>⚙️ 配置测试检查清单</h3>
+                <p>系统性测试插件的各项配置功能，确保所有设置都能正常工作。</p>
+            </div>
+            
+            <div class="test-section">
+                <h3>📋 配置功能验证</h3>
+                <div class="feature-badges">
+                    <span class="feature-badge">交互测试</span>
+                    <span class="feature-badge">配置验证</span>
+                    <span class="feature-badge">功能检查</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>配置项</th>
+                            <th>测试内容</th>
+                            <th>预期效果</th>
+                            <th>测试结果</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>按钮文案模板</td>
+                            <td>修改buttonText配置中的{count}变量</td>
+                            <td>按钮文字显示自定义内容和实际数据条数</td>
+                            <td class="test-result">⬜ 待测试</td>
+                        </tr>
+                        <tr>
+                            <td>按钮样式预设</td>
+                            <td>在配置页面选择不同样式预设</td>
+                            <td>按钮颜色、渐变和阴影效果改变</td>
+                            <td class="test-result">⬜ 待测试</td>
+                        </tr>
+                        <tr>
+                            <td>自定义按钮样式</td>
+                            <td>使用custom样式并调整颜色和大小</td>
+                            <td>按钮按照自定义样式显示</td>
+                            <td class="test-result">⬜ 待测试</td>
+                        </tr>
+                        <tr>
+                            <td>文件名模板</td>
+                            <td>修改filename为"{title}_{date}_{time}"</td>
+                            <td>下载文件名包含页面标题、日期和时间</td>
+                            <td class="test-result">⬜ 待测试</td>
+                        </tr>
+                        <tr>
+                            <td>工作表名称</td>
+                            <td>修改sheetName为"数据导出"</td>
+                            <td>Excel文件中工作表名称显示为"数据导出"</td>
+                            <td class="test-result">⬜ 待测试</td>
+                        </tr>
+                        <tr>
+                            <td>日期格式</td>
+                            <td>选择不同的日期格式选项</td>
+                            <td>文件名中日期按所选格式显示</td>
+                            <td class="test-result">⬜ 待测试</td>
+                        </tr>
+                        <tr>
+                            <td>图片导出</td>
+                            <td>关闭includeImages选项</td>
+                            <td>Excel中不包含图片，只显示空白单元格</td>
+                            <td class="test-result">⬜ 待测试</td>
+                        </tr>
+                        <tr>
+                            <td>超链接保持</td>
+                            <td>关闭includeLinks选项</td>
+                            <td>Excel中链接变为普通文本，失去点击功能</td>
+                            <td class="test-result">⬜ 待测试</td>
+                        </tr>
+                        <tr>
+                            <td>样式保持</td>
+                            <td>关闭preserveStyles选项</td>
+                            <td>Excel中不保持原网页的样式格式</td>
+                            <td class="test-result">⬜ 待测试</td>
+                        </tr>
+                        <tr>
+                            <td>自动列宽</td>
+                            <td>关闭autoColumnWidth选项</td>
+                            <td>Excel列宽不会自动调整，保持默认宽度</td>
+                            <td class="test-result">⬜ 待测试</td>
+                        </tr>
+                        <tr>
+                            <td>图片尺寸限制</td>
+                            <td>设置maxImageWidth=100, maxImageHeight=80</td>
+                            <td>导出的图片尺寸被限制在100x80像素内</td>
+                            <td class="test-result">⬜ 待测试</td>
+                        </tr>
+                        <tr>
+                            <td>处理延迟</td>
+                            <td>将processingDelay设置为1000ms</td>
+                            <td>导出动画持续约1秒钟</td>
+                            <td class="test-result">⬜ 待测试</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="note">
+                    <strong>💡 使用说明：</strong>点击"测试结果"列的单元格可以切换测试状态：待测试 → 通过 → 失败 → 待测试
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 标签页切换功能
+        function showTab(tabId) {
+            // 隐藏所有标签页内容
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // 移除所有标签按钮的活动状态
+            const tabButtons = document.querySelectorAll('.nav-tab');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // 显示选中的标签页内容
+            document.getElementById(tabId).classList.add('active');
+            
+            // 激活对应的标签按钮
+            event.target.classList.add('active');
+        }
+        
+        // 宣传图尺寸切换
+        function showPromoSize(size) {
+            const smallImage = document.getElementById('smallPromoImage');
+            const largeImage = document.getElementById('largePromoImage');
+            const toggleBtns = document.querySelectorAll('.toggle-btn');
+            
+            toggleBtns.forEach(btn => btn.classList.remove('active'));
+            
+            if (size === 'small') {
+                smallImage.classList.remove('hidden');
+                largeImage.classList.add('hidden');
+                event.target.classList.add('active');
+            } else {
+                smallImage.classList.add('hidden');
+                largeImage.classList.remove('hidden');
+                event.target.classList.add('active');
+            }
+        }
+        
+        // 下载宣传图
+        function downloadPromoImage(format = 'png') {
+            const smallImage = document.getElementById('smallPromoImage');
+            const largeImage = document.getElementById('largePromoImage');
+            const element = smallImage.classList.contains('hidden') ? largeImage : smallImage;
+            const isLarge = !smallImage.classList.contains('hidden') ? false : true;
+            
+            // 加载html2canvas库
+            if (!window.html2canvas) {
+                const script = document.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+                script.onload = () => generatePromoImage(element, format, isLarge);
+                document.head.appendChild(script);
+            } else {
+                generatePromoImage(element, format, isLarge);
+            }
+        }
+        
+        function generatePromoImage(element, format, isLarge) {
+            // 临时移除transform scale，确保原始尺寸
+            const originalTransform = element.style.transform;
+            if (isLarge) {
+                element.style.transform = 'none';
+            }
+            
+            const width = isLarge ? 1400 : 440;
+            const height = isLarge ? 560 : 280;
+            
+            html2canvas(element, {
+                width: width,
+                height: height,
+                scale: isLarge ? 1 : 2,
+                backgroundColor: null,
+                useCORS: true,
+                logging: false,
+                allowTaint: true
+            }).then(function(canvas) {
+                // 恢复原始transform
+                if (isLarge) {
+                    element.style.transform = originalTransform;
+                }
+                
+                // 创建下载链接
+                const link = document.createElement('a');
+                const sizeText = isLarge ? 'large_1400x560' : 'small_440x280';
+                link.download = `TableExporter_promo_${sizeText}.${format}`;
+                
+                if (format === 'jpg' || format === 'jpeg') {
+                    link.href = canvas.toDataURL('image/jpeg', 0.9);
+                } else {
+                    link.href = canvas.toDataURL('image/png');
+                }
+                
+                // 触发下载
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }).catch(function(error) {
+                // 恢复原始transform
+                if (isLarge) {
+                    element.style.transform = originalTransform;
+                }
+                console.error('生成图片失败:', error);
+                alert('生成图片失败，请尝试使用屏幕截图工具手动截取');
+            });
+        }
+        
+        // 渐变测试功能
+        function rgbToHex(rgb) {
+            if (!rgb || rgb === 'rgba(0, 0, 0, 0)' || rgb === 'transparent') return null;
+            
+            if (rgb.startsWith('#')) {
+                const hex = rgb.replace('#', '').toUpperCase();
+                if (hex.length === 3) {
+                    return hex.split('').map(c => c + c).join('');
+                }
+                return hex.padStart(6, '0');
+            }
+            
+            const namedColors = {
+                'red': 'FF0000',
+                'blue': '0000FF',
+                'green': '008000',
+                'yellow': 'FFFF00',
+                'orange': 'FFA500',
+                'purple': '800080',
+                'black': '000000',
+                'white': 'FFFFFF',
+                'gray': '808080',
+                'grey': '808080'
+            };
+            if (namedColors[rgb.toLowerCase()]) {
+                return namedColors[rgb.toLowerCase()];
+            }
+            
+            const result = rgb.match(/\d+/g);
+            if (!result || result.length < 3) return null;
+            
+            const hex = result.slice(0, 3)
+                .map(x => parseInt(x).toString(16).padStart(2, '0'))
+                .join('')
+                .toUpperCase();
+            
+            return hex === '000000' ? null : hex;
+        }
+
+        function extractGradientColor(backgroundImage) {
+            if (!backgroundImage || !backgroundImage.includes('gradient')) return null;
+            
+            const hexMatches = backgroundImage.match(/#[0-9a-fA-F]{3,6}/g);
+            if (hexMatches && hexMatches.length > 0) {
+                const color = rgbToHex(hexMatches[0]);
+                if (color) return color;
+            }
+            
+            const rgbMatches = backgroundImage.match(/rgba?\([^)]+\)/g);
+            if (rgbMatches && rgbMatches.length > 0) {
+                const color = rgbToHex(rgbMatches[0]);
+                if (color) return color;
+            }
+            
+            return null;
+        }
+
+        function testGradientExtraction() {
+            const testGradient = "linear-gradient(135deg, #ff9800 0%, #f57c00 100%)";
+            const extractedColor = extractGradientColor(testGradient);
+            
+            document.getElementById('gradientResult').innerHTML = `
+                <h4>渐变颜色提取测试结果：</h4>
+                <p><strong>输入：</strong>${testGradient}</p>
+                <p><strong>提取到的颜色：</strong>${extractedColor || '无'}</p>
+                <div class="color-preview" style="background-color: #${extractedColor};"></div>
+            `;
+        }
+
+        function testCellStyle() {
+            const th = document.querySelector('#gradientTestTable th');
+            const style = window.getComputedStyle(th);
+            
+            let bgColor = rgbToHex(style.backgroundColor);
+            if (!bgColor) {
+                bgColor = extractGradientColor(style.backgroundImage);
+            }
+            if (!bgColor) {
+                bgColor = extractGradientColor(style.background);
+            }
+            if (!bgColor && th.tagName.toLowerCase() === 'th') {
+                bgColor = 'FF9800';
+            }
+            
+            document.getElementById('gradientResult').innerHTML = `
+                <h4>表头样式检测结果：</h4>
+                <p><strong>backgroundColor：</strong>${style.backgroundColor}</p>
+                <p><strong>backgroundImage：</strong>${style.backgroundImage}</p>
+                <p><strong>background：</strong>${style.background}</p>
+                <p><strong>最终提取的颜色：</strong>${bgColor || '无'}</p>
+                <div class="color-preview" style="background-color: #${bgColor};"></div>
+            `;
+        }
+        
+        // 性能测试功能
+        function generatePerformanceData(count) {
+            const tbody = document.getElementById('performanceTableBody');
+            const statuses = ['成功', '失败', '处理中', '等待'];
+            const statusClasses = ['status-success', 'status-error', 'status-warning', 'status-warning'];
+            const descriptions = [
+                '数据处理完成',
+                '网络连接超时',
+                '正在处理中...',
+                '等待处理',
+                '验证通过',
+                '格式错误',
+                '重试中...',
+                '队列等待'
+            ];
+            
+            // 清空现有数据
+            tbody.innerHTML = '';
+            
+            for (let i = 1; i <= count; i++) {
+                const row = document.createElement('tr');
+                const statusIndex = Math.floor(Math.random() * statuses.length);
+                const descIndex = Math.floor(Math.random() * descriptions.length);
+                
+                row.innerHTML = `
+                    <td class="number-cell">${String(i).padStart(4, '0')}</td>
+                    <td class="number-cell">${Math.floor(Math.random() * 100000)}</td>
+                    <td>${new Date(Date.now() - Math.random() * 86400000 * 30).toLocaleString()}</td>
+                    <td class="${statusClasses[statusIndex]}">${statuses[statusIndex]}</td>
+                    <td>${descriptions[descIndex]}</td>
+                `;
+                
+                tbody.appendChild(row);
+            }
+            
+            updatePerformanceStats(count);
+        }
+        
+        function clearPerformanceData() {
+            document.getElementById('performanceTableBody').innerHTML = '';
+            updatePerformanceStats(0);
+        }
+        
+        function updatePerformanceStats(count) {
+            document.getElementById('performanceStats').innerHTML = `
+                <p><strong>当前数据行数：</strong>${count}</p>
+                <p><strong>预计导出时间：</strong>${Math.ceil(count / 100)} 秒</p>
+                <p><strong>内存使用估算：</strong>${Math.ceil(count * 0.5)} KB</p>
+            `;
+        }
+        
+        // 页面加载完成后的初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化性能测试数据
+            generatePerformanceData(50);
+            
+            // 添加测试结果交互功能
+            const testResults = document.querySelectorAll('.test-result');
+            testResults.forEach(cell => {
+                cell.addEventListener('click', function() {
+                    if (this.textContent.includes('⬜ 待测试')) {
+                        this.textContent = '✅ 通过';
+                        this.style.color = '#4caf50';
+                        this.style.fontWeight = 'bold';
+                    } else if (this.textContent.includes('✅ 通过')) {
+                        this.textContent = '❌ 失败';
+                        this.style.color = '#f44336';
+                        this.style.fontWeight = 'bold';
+                    } else {
+                        this.textContent = '⬜ 待测试';
+                        this.style.color = '#666';
+                        this.style.fontWeight = 'normal';
+                    }
+                });
+                
+                // 添加悬停效果
+                cell.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = '#f0f0f0';
+                });
+                
+                cell.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = '';
+                });
+            });
+            
+            // 自动加载html2canvas库
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+            document.head.appendChild(script);
+        });
+    </script>
+</body>
+</html> 

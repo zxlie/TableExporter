@@ -237,12 +237,17 @@ body {
     font-size: 2rem;
     font-weight: 700;
     color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    line-height: 1.1;
 }
 
 .stat-label {
     font-size: 0.9rem;
-    opacity: 0.8;
     margin-top: 4px;
+    color: #ffffff !important;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    opacity: 1;
 }
 
 .hero-image {
@@ -775,6 +780,7 @@ section {
 .footer-logo {
     width: 32px;
     height: 32px;
+    border-radius: 6px;
 }
 
 .footer-brand-text {
@@ -919,6 +925,22 @@ section {
     
     .hero-stats {
         justify-content: center;
+        gap: 30px;
+    }
+    
+    .stat-item {
+        min-width: 80px;
+    }
+    
+    .stat-number {
+        font-size: 1.8rem;
+    }
+    
+    .stat-label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #ffffff !important;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
     }
     
     .features-grid {
@@ -1011,4 +1033,873 @@ section {
 .fade-in-up.animate {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* 微信打赏样式 */
+.donate {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.donate::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23667eea" fill-opacity="0.05"><circle cx="20" cy="20" r="1"/></g></svg>') repeat;
+    pointer-events: none;
+}
+
+.donate-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.donate-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.donate-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 2px;
+}
+
+.donate-reasons {
+    list-style: none;
+    margin-bottom: 40px;
+}
+
+.donate-reasons li {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.donate-reasons li:hover {
+    transform: translateX(10px);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.15);
+}
+
+.donate-reasons li i {
+    font-size: 20px;
+    color: #667eea;
+    width: 24px;
+    text-align: center;
+}
+
+.donate-reasons li span {
+    font-size: 16px;
+    color: #555;
+    font-weight: 500;
+}
+
+.donate-stats {
+    display: flex;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.donate-stat {
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+    flex: 1;
+}
+
+.donate-stat .stat-number {
+    display: block;
+    font-size: 24px;
+    font-weight: 700;
+    color: #667eea;
+    margin-bottom: 5px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.donate-stat .stat-label {
+    font-size: 14px;
+    color: #000000 !important;
+    font-weight: 700;
+}
+
+.qr-container {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(102, 126, 234, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.qr-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.qr-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.qr-header i {
+    font-size: 24px;
+    color: #07c160;
+}
+
+.qr-image {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.qr-image img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.qr-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+    gap: 10px;
+}
+
+.qr-image:hover .qr-overlay {
+    opacity: 1;
+}
+
+.qr-overlay i {
+    font-size: 24px;
+}
+
+.qr-overlay span {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.qr-footer p {
+    margin: 0;
+    color: #555;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.qr-tip {
+    font-size: 14px !important;
+    color: #999 !important;
+    margin-top: 8px !important;
+}
+
+.donate-alternatives {
+    margin-top: 30px;
+    padding: 25px;
+    background: rgba(102, 126, 234, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.donate-alternatives h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.alternative-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.alt-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: white;
+    color: #667eea;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.alt-btn:hover {
+    background: #667eea;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+.alt-btn i {
+    font-size: 16px;
+}
+
+/* 响应式设计 */
+@media (max-width: 1024px) {
+    .donate-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+    }
+    
+    .donate-stats {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .donate {
+        padding: 60px 0;
+    }
+    
+    .donate-title {
+        font-size: 24px;
+    }
+    
+    .donate-stats {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .qr-container {
+        padding: 20px;
+    }
+    
+    .qr-image img {
+        width: 160px;
+        height: 160px;
+    }
+    
+    .donate-reasons li {
+        padding: 12px;
+    }
+    
+    .donate-reasons li span {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .donate-content {
+        gap: 30px;
+    }
+    
+    .qr-image img {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .alternative-buttons {
+        gap: 8px;
+    }
+    
+    .alt-btn {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+}
+
+/* 英雄区域演示界面样式 */
+.demo-interface {
+    background: #f8fafc;
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 14px;
+}
+
+.demo-toolbar {
+    background: white;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.demo-title {
+    font-weight: 600;
+    color: #333;
+}
+
+.demo-export-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.3s ease;
+}
+
+.demo-export-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.demo-table-preview {
+    background: white;
+}
+
+.demo-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.demo-row.demo-header {
+    background: #f8fafc;
+    font-weight: 600;
+}
+
+.demo-cell {
+    padding: 8px 12px;
+    border-right: 1px solid #f0f0f0;
+    font-size: 12px;
+}
+
+.demo-cell:last-child {
+    border-right: none;
+}
+
+.demo-status {
+    background: #e8f5e8;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #2d5a2d;
+}
+
+.demo-indicator {
+    width: 8px;
+    height: 8px;
+    background: #4caf50;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* 使用教程步骤视觉样式 */
+.step-visual {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+}
+
+.step-icon-large {
+    font-size: 48px;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 20px;
+}
+
+.step-demo {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 8px;
+    padding: 16px;
+    color: #333;
+}
+
+/* Chrome商店卡片样式 */
+.chrome-store-card {
+    background: white;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.store-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.store-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+}
+
+.store-info h4 {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.store-info p {
+    margin: 0;
+    font-size: 12px;
+    color: #666;
+}
+
+.store-install-btn {
+    background: #4285f4;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s ease;
+}
+
+.store-install-btn:hover {
+    background: #3367d6;
+}
+
+/* 配置面板样式 */
+.config-panel {
+    background: white;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.config-header {
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.config-header h4 {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.config-options {
+    margin-bottom: 16px;
+}
+
+.config-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+.config-select, .config-input {
+    padding: 4px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 12px;
+    width: 120px;
+}
+
+.config-save-btn {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s ease;
+}
+
+.config-save-btn:hover {
+    background: #5a6fd8;
+}
+
+/* 使用演示样式 */
+.usage-demo {
+    background: white;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.demo-webpage {
+    background: #f8fafc;
+    border-radius: 6px;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+}
+
+.webpage-header {
+    background: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #333;
+}
+
+.mini-table {
+    background: white;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+}
+
+.mini-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-size: 12px;
+}
+
+.mini-row:first-child {
+    background: #f8fafc;
+    font-weight: 600;
+}
+
+.mini-row span {
+    padding: 6px 8px;
+    border-right: 1px solid #e0e0e0;
+}
+
+.mini-row span:last-child {
+    border-right: none;
+}
+
+.export-highlight-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0 auto;
+    animation: glow 2s infinite;
+}
+
+@keyframes glow {
+    0%, 100% { box-shadow: 0 0 5px rgba(102, 126, 234, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.8); }
+}
+
+/* 扩展模拟器样式 */
+.extension-mockup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.extension-window {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    max-width: 320px;
+    width: 100%;
+    border: 1px solid #e0e0e0;
+}
+
+.extension-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.ext-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+}
+
+.ext-info h4 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.ext-info p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.ext-status {
+    background: #e8f5e8;
+    color: #2d5a2d;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-left: auto;
+}
+
+.extension-features {
+    margin-bottom: 20px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #555;
+}
+
+.feature-item i {
+    color: #4caf50;
+    font-size: 16px;
+}
+
+.extension-stats {
+    display: flex;
+    gap: 12px;
+}
+
+.stat-badge {
+    background: #f8fafc;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    flex: 1;
+    border: 1px solid #e0e0e0;
+}
+
+.stat-value {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    color: #667eea;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #666;
+}
+
+/* 头像演示样式 */
+.avatar-demo {
+    transition: all 0.3s ease;
+}
+
+.avatar-demo:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .demo-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .demo-cell {
+        border-right: none;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .extension-window {
+        padding: 16px;
+        max-width: 280px;
+    }
+    
+    .step-visual {
+        padding: 16px;
+    }
+    
+    .step-icon-large {
+        font-size: 36px;
+    }
+}
+
+/* 真实图片样式 */
+.demo-screenshot {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.demo-screenshot:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+}
+
+.demo-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+}
+
+.demo-overlay {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.demo-screenshot:hover .demo-overlay {
+    opacity: 1;
+}
+
+.demo-badge {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 8px 16px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.demo-badge i {
+    color: #667eea;
+}
+
+.extension-preview {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.extension-preview:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+}
+
+.extension-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+}
+
+.preview-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.extension-preview:hover .preview-overlay {
+    opacity: 1;
+}
+
+.preview-badge {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 8px 16px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.preview-badge i {
+    color: #4285f4;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .demo-screenshot,
+    .extension-preview {
+        margin-top: 40px;
+    }
+    
+    .demo-overlay,
+    .preview-overlay {
+        opacity: 1;
+    }
+    
+    .demo-badge,
+    .preview-badge {
+        position: static;
+        margin-top: 15px;
+        justify-content: center;
+    }
 } 

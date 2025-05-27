@@ -375,8 +375,201 @@ document.addEventListener('DOMContentLoaded', function() {
     initLazyLoading();
 });
 
+// 分享项目功能
+function shareProject() {
+    const shareData = {
+        title: 'TableExporter - 表格导出神器',
+        text: '智能识别网页表格，一键导出Excel！支持复杂表格、数据分析必备，让数据处理变得简单高效。',
+        url: window.location.href
+    };
+    
+    // 检查是否支持Web Share API
+    if (navigator.share) {
+        navigator.share(shareData)
+            .then(() => {
+                showNotification('感谢您的分享！', 'success');
+            })
+            .catch((error) => {
+                console.log('分享失败:', error);
+                fallbackShare();
+            });
+    } else {
+        fallbackShare();
+    }
+}
+
+// 备用分享方法
+function fallbackShare() {
+    const shareText = `TableExporter - 表格导出神器\n智能识别网页表格，一键导出Excel！\n${window.location.href}`;
+    
+    // 尝试复制到剪贴板
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(shareText)
+            .then(() => {
+                showNotification('分享链接已复制到剪贴板！', 'success');
+            })
+            .catch(() => {
+                showShareModal(shareText);
+            });
+    } else {
+        showShareModal(shareText);
+    }
+}
+
+// 显示分享模态框
+function showShareModal(shareText) {
+    // 创建模态框
+    const modal = document.createElement('div');
+    modal.className = 'share-modal';
+    modal.innerHTML = `
+        <div class="share-modal-content">
+            <div class="share-modal-header">
+                <h3>分享 TableExporter</h3>
+                <button class="share-modal-close">&times;</button>
+            </div>
+            <div class="share-modal-body">
+                <p>复制下面的文本分享给朋友：</p>
+                <textarea readonly class="share-text">${shareText}</textarea>
+                <div class="share-buttons">
+                    <button class="btn btn-primary copy-btn">复制文本</button>
+                    <a href="https://weibo.com/intent/tweet?text=${encodeURIComponent(shareText)}" target="_blank" class="btn btn-secondary">
+                        <i class="fab fa-weibo"></i> 分享到微博
+                    </a>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // 添加样式
+    const style = document.createElement('style');
+    style.textContent = `
+        .share-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .share-modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 0;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow: hidden;
+            animation: slideUp 0.3s ease;
+        }
+        
+        .share-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .share-modal-header h3 {
+            margin: 0;
+            color: #333;
+        }
+        
+        .share-modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .share-modal-body {
+            padding: 20px;
+        }
+        
+        .share-text {
+            width: 100%;
+            height: 100px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            resize: none;
+            font-family: inherit;
+            margin: 15px 0;
+        }
+        
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .copy-btn {
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    `;
+    
+    document.head.appendChild(style);
+    document.body.appendChild(modal);
+    
+    // 绑定事件
+    const closeBtn = modal.querySelector('.share-modal-close');
+    const copyBtn = modal.querySelector('.copy-btn');
+    const textarea = modal.querySelector('.share-text');
+    
+    closeBtn.addEventListener('click', () => {
+        document.body.removeChild(modal);
+        document.head.removeChild(style);
+    });
+    
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            document.body.removeChild(modal);
+            document.head.removeChild(style);
+        }
+    });
+    
+    copyBtn.addEventListener('click', () => {
+        textarea.select();
+        document.execCommand('copy');
+        showNotification('文本已复制到剪贴板！', 'success');
+        document.body.removeChild(modal);
+        document.head.removeChild(style);
+    });
+    
+    // 自动选中文本
+    textarea.select();
+}
+
 // 导出给全局使用
 window.TableExporterSite = {
     showNotification,
-    removeNotification
-}; 
+    removeNotification,
+    shareProject
+};
+
+// 将shareProject函数暴露到全局作用域，以便HTML中的onclick可以调用
+window.shareProject = shareProject; 
