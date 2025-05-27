@@ -7,6 +7,142 @@ let config = null; // 配置缓存
 // 标记脚本已注入
 window.tableExporterInjected = true;
 
+// 创建notification样式
+function createNotificationStyles() {
+    if (document.getElementById('table-exporter-notification-styles')) return;
+    
+    const style = document.createElement('style');
+    style.id = 'table-exporter-notification-styles';
+    style.textContent = `
+        .table-exporter-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            z-index: 10000;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            max-width: 350px;
+            animation: slideInRight 0.3s ease-out;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .table-exporter-notification.no-tables {
+            border-left-color: #FF9800;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .table-exporter-notification .notification-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .table-exporter-notification .notification-icon {
+            margin-right: 8px;
+            font-size: 16px;
+        }
+        
+        .table-exporter-notification .notification-message {
+            font-size: 13px;
+            opacity: 0.95;
+            line-height: 1.4;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+        
+        .table-exporter-notification.slide-out {
+            animation: slideOutRight 0.3s ease-in forwards;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// 显示notification
+function showNotification(title, message, hasTable = true, duration = 4000) {
+    // 创建样式
+    createNotificationStyles();
+    
+    // 移除已存在的notification
+    const existingNotification = document.querySelector('.table-exporter-notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+    
+    const notification = document.createElement('div');
+    notification.className = `table-exporter-notification ${hasTable ? '' : 'no-tables'}`;
+    
+    const icon = hasTable ? '📊' : '👀';
+    
+    notification.innerHTML = `
+        <div class="notification-title">
+            <span class="notification-icon">${icon}</span>
+            ${title}
+        </div>
+        <div class="notification-message">${message}</div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // 自动隐藏
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.classList.add('slide-out');
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 300);
+        }
+    }, duration);
+}
+
+// 检测页面表格并显示notification
+function detectTablesAndNotify() {
+    const tables = document.querySelectorAll('table');
+    const tableCount = tables.length;
+    
+    if (tableCount > 0) {
+        showNotification(
+            'Table Reporter 已激活',
+            `检测到了 ${tableCount} 个表格，可以按需导出Excel`,
+            true
+        );
+    } else {
+        showNotification(
+            'Table Reporter 已激活',
+            '当前页面上还没有表格，我将自动帮你监听',
+            false
+        );
+    }
+}
+
 // 防止重复初始化
 if (!window.tableExporterInitialized) {
     window.tableExporterInitialized = true;
@@ -87,6 +223,9 @@ window.toggleTableExporter = function() {
 };
 
 function initObservers() {
+    // 检测表格并显示notification
+    detectTablesAndNotify();
+    
     addExportButtons();
     observeTables();
 }
@@ -760,7 +899,34 @@ function observeTables() {
 
     // 监听DOM新增table的情况
     if (!domObserver) {
-        domObserver = new MutationObserver(() => {
+        domObserver = new MutationObserver((mutations) => {
+            // 检查是否有新增的table元素
+            let hasNewTable = false;
+            mutations.forEach(mutation => {
+                mutation.addedNodes.forEach(node => {
+                    if (node.nodeType === 1) { // Element node
+                        if (node.tagName === 'TABLE' || node.querySelector('table')) {
+                            hasNewTable = true;
+                        }
+                    }
+                });
+            });
+            
+            if (hasNewTable) {
+                // 延迟一下再检测，确保DOM完全更新
+                setTimeout(() => {
+                    const currentTableCount = document.querySelectorAll('table').length;
+                    if (currentTableCount > 0) {
+                        showNotification(
+                            '检测到新表格',
+                            `页面新增了表格，当前共有 ${currentTableCount} 个表格`,
+                            true,
+                            3000
+                        );
+                    }
+                }, 100);
+            }
+            
             debounceAddExportButtons();
             observeTables(); // 新增table时重新监听
         });
